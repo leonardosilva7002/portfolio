@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leonardo Santos Silva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Epilogue:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('t-QHuebqP7K3QQSYv');</script>
+  <style>
+    :root {
+      --cream:       #f5f0e8;
+      --cream-2:     #ede7d9;
+      --cream-3:     #e4dccb;
+      --ink:         #1a1612;
+      --ink-2:       #3d3830;
+      --ink-3:       #6b6358;
+      --ink-4:       #9e9488;
+      --rule:        rgba(26,22,18,0.12);
+      --warm:        #8b6f47;
+      --ff-d: 'Playfair Display', Georgia, serif;
+      --ff-b: 'Epilogue', sans-serif;
+      --ease: cubic-bezier(0.4,0,0.2,1);
+      --eo:   cubic-bezier(0,0,0.2,1);
+      --max: 1160px;
+      --px: clamp(1.5rem, 6vw, 5rem);
+      --py: clamp(5rem, 10vw, 9rem);
+    }
+    [data-theme="dark"] {
+      --cream:   #141210;
+      --cream-2: #1c1916;
+      --cream-3: #252019;
+      --ink:     #f0ebe2;
+      --ink-2:   #d4cdc2;
+      --ink-3:   #9e9488;
+      --ink-4:   #5e574e;
+      --rule:    rgba(240,235,226,0.1);
+      --warm:    #c49a6c;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;font-size:16px;}
+    body{font-family:var(--ff-b);background:var(--cream);color:var(--ink);line-height:1.6;transition:background .5s var(--ease),color .5s var(--ease);overflow-x:hidden;}
+    a{color:inherit;text-decoration:none;}ul{list-style:none;}
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);background:var(--cream);border-bottom:1px solid var(--rule);transition:background .5s var(--ease);}
+    .nav-logo{font-family:var(--ff-d);font-size:1.05rem;font-weight:700;}
+    .nav-logo em{font-style:italic;color:var(--warm);}
+    .nav-center{display:flex;gap:2.5rem;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-center a{font-size:.78rem;font-weight:500;letter-spacing:.06em;color:var(--ink-3);transition:color .25s;position:relative;}
+    .nav-center a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);}
+    .nav-center a:hover,.nav-center a.active{color:var(--ink);}
+    .nav-center a:hover::after,.nav-center a.active::after{transform:scaleX(1);}
+    .nav-right{display:flex;align-items:center;gap:.75rem;}
+    .pill{font-family:var(--ff-b);font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .9rem;border:1px solid var(--rule);border-radius:999px;background:transparent;color:var(--ink-3);cursor:pointer;transition:all .25s;}
+    .pill:hover{background:var(--ink);color:var(--cream);border-color:var(--ink);}
+    .btn-ink{font-family:var(--ff-b);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.75rem;background:var(--ink);color:var(--cream);border:1px solid var(--ink);border-radius:2px;cursor:pointer;transition:all .25s var(--ease);display:inline-flex;align-items:center;gap:.5rem;}
+    .btn-ink:hover{background:var(--warm);border-color:var(--warm);}
+    .btn-ghost{font-family:var(--ff-b);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.75rem;background:transparent;color:var(--ink);border:1px solid var(--rule);border-radius:2px;cursor:pointer;transition:all .25s var(--ease);display:inline-flex;align-items:center;gap:.5rem;}
+    .btn-ghost:hover{border-color:var(--ink);}
+    .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .ham span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:2px;transition:all .3s;}
+    .mob{display:none;position:fixed;top:64px;left:0;right:0;background:var(--cream);border-bottom:1px solid var(--rule);padding:1.5rem var(--px) 2rem;flex-direction:column;gap:1.25rem;z-index:99;animation:mDrop .2s var(--eo);}
+    .mob.open{display:flex;}
+    .mob a{font-size:.95rem;font-weight:500;color:var(--ink-2);}
+    .mob-ctrls{display:flex;gap:.6rem;margin-top:.5rem;}
+    @keyframes mDrop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+
+    /* LAYOUT */
+    .w{max-width:var(--max);margin:0 auto;padding:var(--py) var(--px);position:relative;}
+    hr.rule{border:none;border-top:1px solid var(--rule);max-width:var(--max);margin:0 auto;}
+
+    /* SEC HEADER */
+    .sh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:3.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--rule);}
+    .sn{font-family:var(--ff-d);font-size:.75rem;font-style:italic;color:var(--ink-4);margin-right:.75rem;}
+    .st{font-family:var(--ff-d);font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;letter-spacing:-.02em;}
+    .st em{font-style:italic;color:var(--warm);}
+    .ss{font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);}
+
+    /* HERO */
+    #home{min-height:100svh;display:grid;place-items:center;padding-top:64px;}
+    .hi{max-width:var(--max);width:100%;padding:0 var(--px);}
+    .h-issue{display:flex;align-items:center;gap:1rem;margin-bottom:3rem;animation:fUp .8s var(--ease) both;}
+    .h-line{flex:1;height:1px;background:var(--rule);}
+    .h-it{font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-4);white-space:nowrap;}
+    .h-head{font-family:var(--ff-d);font-size:clamp(3.5rem,10vw,9rem);font-weight:900;line-height:.95;letter-spacing:-.03em;margin-bottom:2.5rem;animation:fUp .8s .1s var(--ease) both;}
+    .h-head .it{font-style:italic;font-weight:400;color:var(--ink-3);}
+    .h-head .st{-webkit-text-stroke:1.5px var(--ink);color:transparent;}
+    .h-bot{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;animation:fUp .8s .2s var(--ease) both;}
+    .h-desc{font-size:1rem;color:var(--ink-3);max-width:380px;line-height:1.75;font-weight:300;}
+    .h-ctas{display:flex;gap:.75rem;flex-shrink:0;}
+    .h-scroll{display:flex;align-items:center;gap:.75rem;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-4);margin-top:4rem;animation:fUp .8s .35s var(--ease) both;}
+    .sdot{width:5px;height:5px;border-radius:50%;background:var(--ink-4);animation:blink 2s infinite;}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+    @keyframes fUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ABOUT */
+    .ab-grid{display:grid;grid-template-columns:300px 1fr;gap:5rem;align-items:start;}
+    .ab-port{aspect-ratio:3/4;background:var(--cream-3);border:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;position:relative;overflow:hidden;}
+    .ab-port::before{content:'';position:absolute;inset:8px;border:1px solid var(--rule);pointer-events:none;z-index:1;}
+    .ab-pi{font-size:3.5rem;}
+    .ab-pc{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);}
+    .ab-pt{position:absolute;bottom:16px;left:16px;background:var(--ink);color:var(--cream);font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .75rem;}
+    .ab-pq{font-family:var(--ff-d);font-size:clamp(1.1rem,2.5vw,1.5rem);font-style:italic;font-weight:400;line-height:1.5;color:var(--ink-2);border-left:2px solid var(--warm);padding-left:1.5rem;margin-bottom:2rem;}
+    .ab-p{font-size:.975rem;color:var(--ink-3);line-height:1.85;font-weight:300;margin-bottom:1.5rem;}
+    .int-lbl{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-4);margin-bottom:1rem;}
+    .int-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem;}
+    .itag{font-size:.78rem;font-weight:500;padding:.4rem 1rem;border:1px solid var(--rule);color:var(--ink-2);transition:all .2s;cursor:default;}
+    .itag:hover{border-color:var(--ink);background:var(--ink);color:var(--cream);}
+    .ab-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule);}
+    .stat{padding:1.25rem 1.5rem;border-right:1px solid var(--rule);}
+    .stat:last-child{border-right:none;}
+    .stn{font-family:var(--ff-d);font-size:1.75rem;font-weight:700;line-height:1;margin-bottom:.35rem;}
+    .stl{font-size:.7rem;color:var(--ink-4);letter-spacing:.1em;text-transform:uppercase;}
+
+    /* PROJECTS */
+    .proj-item{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--rule);transition:padding .5s cubic-bezier(0.16,1,0.3,1);}
+    .proj-item:first-child{border-top:1px solid var(--rule);}
+    .proj-item:hover{padding-left:.35rem;}
+    .proj-item:hover .parr{opacity:1;transform:translateX(4px);}
+    .pnum{font-family:var(--ff-d);font-size:.8rem;font-style:italic;color:var(--ink-4);text-align:right;}
+    .ptitle{font-family:var(--ff-d);font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:700;letter-spacing:-.01em;margin-bottom:.4rem;}
+    .pmeta{display:flex;align-items:center;gap:1rem;margin-bottom:.6rem;}
+    .pst{font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .6rem;border:1px solid;}
+    .st-live{color:#6b7c45;border-color:#6b7c45;background:rgba(107,124,69,.07);}
+    .st-done{color:var(--warm);border-color:var(--warm);background:rgba(139,111,71,.07);}
+    .pyr{font-size:.72rem;color:var(--ink-4);letter-spacing:.1em;}
+    .pdesc{font-size:.875rem;color:var(--ink-3);line-height:1.7;max-width:520px;}
+    .ptags{display:flex;gap:.4rem;margin-top:.75rem;flex-wrap:wrap;}
+    .pt{font-size:.67rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);padding:.2rem .55rem;border:1px solid var(--rule);}
+    .parr{display:inline-flex;align-items:center;gap:.35rem;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);opacity:.35;transition:opacity .6s cubic-bezier(0.25,0.46,0.45,0.94),transform .6s cubic-bezier(0.25,0.46,0.45,0.94);}
+    .parr svg{width:14px;height:14px;}
+
+    /* SKILLS */
+    .sk-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);}
+    .sk-cell{padding:1.75rem 2rem;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);transition:background .25s;}
+    .sk-cell:hover{background:var(--cream-2);}
+    .sk-cell:nth-child(even){border-right:none;}
+    .sk-cell:nth-last-child(-n+2){border-bottom:none;}
+    .sk-hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem;}
+    .sk-nm{font-family:var(--ff-d);font-size:1.1rem;font-weight:700;}
+    .sk-pc{font-family:var(--ff-d);font-size:1.4rem;font-weight:900;color:var(--ink-4);line-height:1;}
+    .sk-tr{height:3px;background:var(--rule);position:relative;overflow:hidden;}
+    .sk-fi{position:absolute;top:0;left:0;bottom:0;background:var(--ink);width:0%;transition:width 1.4s cubic-bezier(.4,0,.2,1);}
+    .sk-sb{font-size:.7rem;color:var(--ink-4);letter-spacing:.1em;text-transform:uppercase;margin-top:.6rem;}
+
+    /* CONTACT */
+    .ct-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start;}
+    .ct-title{font-family:var(--ff-d);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;line-height:1.3;margin-bottom:1.25rem;}
+    .ct-title em{font-style:italic;color:var(--warm);}
+    .ct-p{font-size:.9rem;color:var(--ink-3);line-height:1.8;font-weight:300;margin-bottom:2rem;}
+    .ct-email{font-family:var(--ff-d);font-size:.9rem;font-style:italic;color:var(--ink-2);padding:1rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:2rem;word-break:break-all;}
+    .soc-r{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0;border-bottom:1px solid var(--rule);font-size:.85rem;font-weight:500;color:var(--ink-2);transition:all .2s;}
+    .soc-r:first-child{border-top:1px solid var(--rule);}
+    .soc-r:hover{padding-left:.5rem;color:var(--ink);}
+    .soc-pl{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);}
+    .soc-ar{opacity:.3;transition:all .2s;}
+    .soc-r:hover .soc-ar{opacity:1;transform:translateX(3px);}
+    /* form */
+    .cf{display:flex;flex-direction:column;}
+    .cf-row{border-bottom:1px solid var(--rule);padding:.1rem 0;}
+    .cf-row:first-of-type{border-top:1px solid var(--rule);}
+    .cf-field{display:flex;flex-direction:column;padding:1rem 0;}
+    .cf-field label{font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-4);margin-bottom:.4rem;}
+    .cf-field input,.cf-field textarea{font-family:var(--ff-b);font-size:.925rem;font-weight:300;background:transparent;border:none;color:var(--ink);outline:none;padding:0;resize:none;transition:color .2s;}
+    .cf-field input::placeholder,.cf-field textarea::placeholder{color:var(--ink-4);}
+    .cf-field textarea{min-height:100px;}
+    .cf-foot{display:flex;align-items:center;justify-content:space-between;padding-top:1.5rem;}
+    .cf-hint{font-size:.72rem;color:var(--ink-4);font-style:italic;}
+    .fst{margin-top:1rem;padding:.75rem 1rem;font-size:.82rem;display:none;border-left:2px solid;}
+    .fst.ok{display:block;color:#6b7c45;border-color:#6b7c45;background:rgba(107,124,69,.06);}
+    .fst.err{display:block;color:#a0522d;border-color:#a0522d;background:rgba(160,82,45,.06);}
+
+    /* FOOTER */
+    footer{max-width:var(--max);margin:0 auto;padding:2rem var(--px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid var(--rule);}
+    .fl{font-family:var(--ff-d);font-size:.95rem;font-weight:700;}
+    .fl em{font-style:italic;color:var(--warm);}
+    .fc{font-size:.72rem;color:var(--ink-4);letter-spacing:.08em;}
+
+    /* REVEAL - visible by default, animate as enhancement */
+    .r{opacity:1;transform:translateY(0);}
+    .js-ready .r{opacity:0;transform:translateY(22px);transition:opacity .7s var(--eo),transform .7s var(--eo);}
+    .js-ready .r.in{opacity:1;transform:translateY(0);}
+
+    /* RESPONSIVE */
+    @media(max-width:960px){
+      .ab-grid{grid-template-columns:1fr;gap:2.5rem;}
+      .ab-port{max-width:260px;}
+      .ct-grid{grid-template-columns:1fr;gap:3rem;}
+      .sk-grid{grid-template-columns:1fr;}
+      .sk-cell:nth-child(even){border-right:1px solid var(--rule);}
+      .sk-cell:nth-last-child(-n+2){border-bottom:1px solid var(--rule);}
+      .sk-cell:last-child{border-bottom:none;}
+    }
+    @media(max-width:768px){
+      .nav-center,.nav-right{display:none;}
+      .ham{display:flex;}
+      .h-bot{flex-direction:column;align-items:flex-start;}
+      .proj-item{grid-template-columns:40px 1fr;}
+      .p-right{display:none;}
+      .ab-stats{grid-template-columns:1fr 1fr;}
+      .stat:last-child{border-right:1px solid var(--rule);grid-column:span 2;border-top:1px solid var(--rule);}
+    }
+    @media(max-width:480px){
+      .h-ctas{flex-direction:column;width:100%;}
+      .btn-ink,.btn-ghost{justify-content:center;}
+    }
+    @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Leonardo <em>Silva</em></div>
+  <ul class="nav-center">
+    <li><a href="#home"     data-pt="Início"   data-en="Home">Início</a></li>
+    <li><a href="#about"    data-pt="Sobre"    data-en="About">Sobre</a></li>
+    <li><a href="#projects" data-pt="Projetos" data-en="Projects">Projetos</a></li>
+    <li><a href="#skills"   data-pt="Skills"   data-en="Skills">Skills</a></li>
+    <li><a href="#contact"  data-pt="Contacto" data-en="Contact">Contacto</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="pill" id="langBtn"><span class="ll">EN</span></button>
+    <button class="pill" id="themeBtn"><span class="tl">Claro</span></button>
+    <a href="Leonardo_Silva_CV.pdf" class="btn-ink" style="font-size:.72rem;padding:.5rem 1.1rem;" download="Leonardo_Silva_CV.pdf">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      CV
+    </a>
+  </div>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob" id="mob">
+  <a href="#home"     data-pt="Início"   data-en="Home">Início</a>
+  <a href="#about"    data-pt="Sobre"    data-en="About">Sobre</a>
+  <a href="#projects" data-pt="Projetos" data-en="Projects">Projetos</a>
+  <a href="#skills"   data-pt="Skills"   data-en="Skills">Skills</a>
+  <a href="#contact"  data-pt="Contacto" data-en="Contact">Contacto</a>
+  <div class="mob-ctrls">
+    <button class="pill" id="langBtnM"><span class="ll">EN</span></button>
+    <button class="pill" id="themeBtnM"><span class="tl">Claro</span></button>
+    <a href="Leonardo_Silva_CV.pdf" class="pill" download="Leonardo_Silva_CV.pdf" style="display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      CV
+    </a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hi">
+    <div class="h-issue">
+      <div class="h-line"></div>
+      <span class="h-it" data-pt="Portfólio · 2026 · Portugal" data-en="Portfolio · 2026 · Portugal">Portfólio · 2026 · Portugal</span>
+      <div class="h-line"></div>
+    </div>
+    <h1 class="h-head">
+      <span class="st">Leonardo</span><br>
+      <span class="it">Santos Silva</span>
+    </h1>
+    <div class="h-bot">
+      <p class="h-desc" data-pt="Estudante de desenvolvimento web. Apaixonado por programação, design e tecnologia. À descoberta do meu caminho no mundo digital." data-en="Web development student. Passionate about coding, design and technology. Finding my path in the digital world.">
+        Estudante de desenvolvimento web. Apaixonado por programação, design e tecnologia. À descoberta do meu caminho no mundo digital.
+      </p>
+      <div class="h-ctas">
+        <a href="#projects" class="btn-ink" data-pt="Ver Projetos" data-en="View Projects">Ver Projetos</a>
+        <a href="#contact"  class="btn-ghost" data-pt="Contactar" data-en="Contact">Contactar</a>
+      </div>
+    </div>
+    <div class="h-scroll">
+      <div class="sdot"></div>
+      <span data-pt="descer para explorar" data-en="scroll to explore">descer para explorar</span>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- ABOUT -->
+<div class="w" id="about">
+  <div class="sh r">
+    <div><span class="sn">01 —</span><span class="st" data-pt="Sobre <em>mim</em>" data-en="About <em>me</em>">Sobre <em>mim</em></span></div>
+    <span class="ss" data-pt="Quem sou" data-en="Who I am">Quem sou</span>
+  </div>
+  <div class="ab-grid">
+    <div class="r" style="transition-delay:.1s">
+      <div class="ab-port" style="padding:0;">
+        <img src="Images/pfpPort.jpeg" alt="Leonardo Silva" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+        <div class="ab-pt" data-pt="Iniciante" data-en="Beginner">Iniciante</div>
+      </div>
+    </div>
+    <div class="r" style="transition-delay:.2s">
+      <p class="ab-pq" data-pt='"Cada linha de código é uma nova oportunidade de aprender algo."' data-en='"Every line of code is a new opportunity to learn something."'>"Cada linha de código é uma nova oportunidade de aprender algo."</p>
+      <p class="ab-p" data-pt="Olá, sou o Leonardo — estou na fase inicial da minha jornada como desenvolvedor. Acabei o 12.º ano na área de Informática e estou a construir as minhas competências passo a passo, com curiosidade e dedicação." data-en="Hi, I'm Leonardo — I'm at the beginning of my journey as a developer. I finished high school in the IT area and I'm building my skills step by step, with curiosity and dedication.">
+        Olá, sou o Leonardo — estou na fase inicial da minha jornada como desenvolvedor. Acabei o 12.º ano na área de Informática e estou a construir as minhas competências passo a passo, com curiosidade e dedicação.
+      </p>
+      <p class="ab-p" data-pt="Fora do mundo digital, sou apaixonado por Fórmula 1, mecânica automóvel, música e gaming. Essas paixões moldam a forma como penso e abordo os problemas — com atenção ao detalhe e vontade de perceber como as coisas funcionam." data-en="Outside the digital world, I'm passionate about Formula 1, car mechanics, music and gaming. These passions shape how I think and approach problems — with attention to detail and curiosity about how things work.">
+        Fora do mundo digital, sou apaixonado por Fórmula 1, mecânica automóvel, música e gaming. Essas paixões moldam a forma como penso e abordo os problemas — com atenção ao detalhe e vontade de perceber como as coisas funcionam.
+      </p>
+      <p class="int-lbl" style="margin-top:2rem" data-pt="Interesses" data-en="Interests">Interesses</p>
+      <div class="int-row">
+        <span class="itag">🏎️ <span data-pt="Fórmula 1" data-en="Formula 1">Fórmula 1</span></span>
+        <span class="itag">🚗 <span data-pt="Automóveis" data-en="Cars">Automóveis</span></span>
+        <span class="itag">💻 <span data-pt="Programação" data-en="Coding">Programação</span></span>
+        <span class="itag">🎵 <span data-pt="Música" data-en="Music">Música</span></span>
+        <span class="itag">🎮 Gaming</span>
+        <span class="itag">🔧 <span data-pt="Mecânica" data-en="Mechanics">Mecânica</span></span>
+      </div>
+      <div class="ab-stats">
+        <div class="stat"><div class="stn">3</div><div class="stl" data-pt="Projetos" data-en="Projects">Projetos</div></div>
+        <div class="stat"><div class="stn">6+</div><div class="stl" data-pt="Tecnologias" data-en="Technologies">Tecnologias</div></div>
+        <div class="stat"><div class="stn">12.º</div><div class="stl" data-pt="Ano Concluído" data-en="Year Done">Ano Concluído</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- PROJECTS -->
+<div class="w" id="projects">
+  <div class="sh r">
+    <div><span class="sn">02 —</span><span class="st" data-pt="<em>Projetos</em>" data-en="<em>Projects</em>"><em>Projetos</em></span></div>
+    <span class="ss" data-pt="O meu trabalho" data-en="My work">O meu trabalho</span>
+  </div>
+
+  <div class="proj-item r">
+    <div class="pnum">01</div>
+    <div>
+      <h3 class="ptitle">Matrix Lab Project</h3>
+      <div class="pmeta">
+        <span class="pst st-live" data-pt="Publicado" data-en="Live">Publicado</span>
+        <span class="pyr">2024 — 2025</span>
+      </div>
+      <p class="pdesc" data-pt="Projeto interativo desenvolvido para explorar e demonstrar competências de desenvolvimento web. Interface envolvente com foco na experiência do utilizador." data-en="Interactive project developed to explore and showcase web development skills. Engaging interface focused on user experience.">
+        Projeto interativo desenvolvido para explorar e demonstrar competências de desenvolvimento web. Interface envolvente com foco na experiência do utilizador.
+      </p>
+      <div class="ptags"><span class="pt">HTML</span><span class="pt">CSS</span><span class="pt">JavaScript</span></div>
+    </div>
+    <div class="p-right">
+      <a href="https://matrixlab-gold.vercel.app" target="_blank" rel="noopener" class="parr">
+        <span data-pt="Ver" data-en="View">Ver</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="proj-item r" style="transition-delay:.1s">
+    <div class="pnum">02</div>
+    <div>
+      <h3 class="ptitle" data-pt="Cabeleireiro Soraia Santos" data-en="Soraia Santos Hair Salon">Cabeleireiro Soraia Santos</h3>
+      <div class="pmeta">
+        <span class="pst st-live" data-pt="Publicado" data-en="Live">Publicado</span>
+        <span class="pyr">2025 — 2026</span>
+      </div>
+      <p class="pdesc" data-pt="Website desenvolvido para um cabeleireiro em Braga. Inclui portefólio de trabalhos, sistema de marcações, avaliações e página de contacto. Design elegante com foco na experiência do cliente." data-en="Website developed for a hair salon in Braga. Includes a portfolio of work, booking system, reviews and contact page. Elegant design focused on the client experience.">
+        Website desenvolvido para um cabeleireiro em Braga. Inclui portefólio de trabalhos, sistema de marcações, avaliações e página de contacto. Design elegante com foco na experiência do cliente.
+      </p>
+      <div class="ptags"><span class="pt">HTML</span><span class="pt">CSS</span><span class="pt">JavaScript</span></div>
+    </div>
+    <div class="p-right">
+      <a href="https://cabeleireirosoraiasantos.vercel.app" target="_blank" rel="noopener" class="parr">
+        <span data-pt="Ver" data-en="View">Ver</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="proj-item r" style="transition-delay:.2s">
+    <div class="pnum">03</div>
+    <div>
+      <h3 class="ptitle" data-pt="PAP — Prova de Aptidão Profissional" data-en="PAP — Professional Aptitude Test">PAP — Prova de Aptidão Profissional</h3>
+      <div class="pmeta">
+        <span class="pst st-done" data-pt="Concluído" data-en="Completed">Concluído</span>
+        <span class="pyr">2025 · <span data-pt="Avaliação 12.º ano" data-en="12th Grade Assessment">Avaliação 12.º ano</span></span>
+      </div>
+      <p class="pdesc" data-pt="Projeto de conclusão do curso na área de Informática, desenvolvido como avaliação final do 12.º ano. Aplicação prática de todos os conhecimentos técnicos adquiridos ao longo da formação. Projeto concluído, não publicado publicamente." data-en="Course completion project in the IT area, developed as the final assessment of the 12th grade. Practical application of all technical knowledge acquired throughout the course. Project completed, not publicly published.">
+        Projeto de conclusão do curso na área de Informática, desenvolvido como avaliação final do 12.º ano. Aplicação prática de todos os conhecimentos técnicos adquiridos ao longo da formação. Projeto concluído, não publicado publicamente.
+      </p>
+      <div class="ptags"><span class="pt">PHP</span><span class="pt">SQL</span><span class="pt">HTML</span><span class="pt">CSS</span><span class="pt">JavaScript</span></div>
+    </div>
+    <div class="p-right">
+      <span class="parr" style="cursor:default">
+        <span data-pt="Privado" data-en="Private">Privado</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </span>
+    </div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- SKILLS -->
+<div class="w" id="skills">
+  <div class="sh r">
+    <div><span class="sn">03 —</span><span class="st" data-pt="<em>Skills</em>" data-en="<em>Skills</em>"><em>Skills</em></span></div>
+    <span class="ss" data-pt="Tecnologias" data-en="Technologies">Tecnologias</span>
+  </div>
+  <div class="sk-grid" id="skGrid">
+    <div class="sk-cell r">
+      <div class="sk-hd"><span class="sk-nm">HTML</span><span class="sk-pc">85</span></div>
+      <div class="sk-tr"><div class="sk-fi" data-v="85"></div></div>
+      <div class="sk-sb" data-pt="Estrutura · Semântica" data-en="Structure · Semantics">Estrutura · Semântica</div>
+    </div>
+    <div class="sk-cell r" style="transition-delay:.05s">
+      <div class="sk-hd"><span class="sk-nm">CSS</span><span class="sk-pc">75</span></div>
+      <div class="sk-tr"><div class="sk-fi" data-v="75"></div></div>
+      <div class="sk-sb" data-pt="Estilo · Layout · Animações" data-en="Style · Layout · Animations">Estilo · Layout · Animações</div>
+    </div>
+    <div class="sk-cell r" style="transition-delay:.1s">
+      <div class="sk-hd"><span class="sk-nm">JavaScript</span><span class="sk-pc">60</span></div>
+      <div class="sk-tr"><div class="sk-fi" data-v="60"></div></div>
+      <div class="sk-sb" data-pt="Interatividade · Lógica" data-en="Interactivity · Logic">Interatividade · Lógica</div>
+    </div>
+    <div class="sk-cell r" style="transition-delay:.15s">
+      <div class="sk-hd"><span class="sk-nm">PHP</span><span class="sk-pc">55</span></div>
+      <div class="sk-tr"><div class="sk-fi" data-v="55"></div></div>
+      <div class="sk-sb" data-pt="Backend · Servidor" data-en="Backend · Server">Backend · Servidor</div>
+    </div>
+    <div class="sk-cell r" style="transition-delay:.2s">
+      <div class="sk-hd"><span class="sk-nm">SQL</span><span class="sk-pc">60</span></div>
+      <div class="sk-tr"><div class="sk-fi" data-v="60"></div></div>
+      <div class="sk-sb" data-pt="Consultas · Bases de Dados" data-en="Queries · Databases">Consultas · Bases de Dados</div>
+    </div>
+    <div class="sk-cell r" style="transition-delay:.25s">
+      <div class="sk-hd"><span class="sk-nm" data-pt="Bases de Dados" data-en="Databases">Bases de Dados</span><span class="sk-pc">58</span></div>
+      <div class="sk-tr"><div class="sk-fi" data-v="58"></div></div>
+      <div class="sk-sb" data-pt="MySQL · Modelação" data-en="MySQL · Modelling">MySQL · Modelação</div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- CONTACT -->
+<div class="w" id="contact">
+  <div class="sh r">
+    <div><span class="sn">04 —</span><span class="st" data-pt="<em>Contacto</em>" data-en="<em>Contact</em>"><em>Contacto</em></span></div>
+    <span class="ss" data-pt="Fala comigo" data-en="Get in touch">Fala comigo</span>
+  </div>
+  <div class="ct-grid">
+    <div class="r">
+      <h3 class="ct-title" data-pt="Tens uma <em>questão</em> ou <em>ideia</em>?" data-en="Have a <em>question</em> or an <em>idea</em>?">Tens uma <em>questão</em> ou <em>ideia</em>?</h3>
+      <p class="ct-p" data-pt="Estou sempre disponível para conversar sobre projetos, colaborações académicas ou simplesmente dar feedback. Entra em contacto!" data-en="I'm always available to talk about projects, academic collaborations or just to give feedback. Get in touch!">
+        Estou sempre disponível para conversar sobre projetos, colaborações académicas ou simplesmente dar feedback. Entra em contacto!
+      </p>
+      <div class="ct-email" id="ctEmail"></div>
+      <div>
+        <a href="https://github.com/leonardosilva7002" target="_blank" rel="noopener" class="soc-r"><span>GitHub</span><span class="soc-pl">@leonardosilva7002</span><span class="soc-ar">→</span></a>
+        <a href="https://www.linkedin.com/in/leonardo-silva-23a131402/" target="_blank" rel="noopener" class="soc-r"><span>LinkedIn</span><span class="soc-pl">@leonardo-silva</span><span class="soc-ar">→</span></a>
+      </div>
+    </div>
+    <div class="r" style="transition-delay:.15s">
+      <form class="cf" id="cForm">
+        <div class="cf-row"><div class="cf-field">
+          <label for="fn" data-pt="Nome" data-en="Name">Nome</label>
+          <input type="text" id="fn" placeholder="O teu nome" required/>
+        </div></div>
+        <div class="cf-row"><div class="cf-field">
+          <label for="fe">Email</label>
+          <input type="email" id="fe" placeholder="o.teu@email.com" required/>
+        </div></div>
+        <div class="cf-row"><div class="cf-field">
+          <label for="fs" data-pt="Assunto" data-en="Subject">Assunto</label>
+          <input type="text" id="fs" placeholder="Sobre o quê?"/>
+        </div></div>
+        <div class="cf-row"><div class="cf-field">
+          <label for="fm" data-pt="Mensagem" data-en="Message">Mensagem</label>
+          <textarea id="fm" placeholder="Escreve a tua mensagem aqui..." required></textarea>
+        </div></div>
+        <div class="fst" id="fst"></div>
+        <div class="cf-foot">
+          <span class="cf-hint" data-pt="Respondo em 1-2 dias úteis." data-en="I reply within 1-2 business days.">Respondo em 1-2 dias úteis.</span>
+          <button type="submit" class="btn-ink" id="sbtn">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span data-pt="Enviar" data-en="Send">Enviar</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fl">Leonardo <em>Silva</em></div>
+  <span class="fc" data-pt="© 2026 — Todos os direitos reservados" data-en="© 2026 — All rights reserved">© 2026 — Todos os direitos reservados</span>
+  <span class="fc" data-pt="Feito com ☕ e curiosidade" data-en="Made with ☕ and curiosity">Feito com ☕ e curiosidade</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  /* STATE */
+  let lang = 'pt';
+  let dark = true;
+  let skDone = false;
+
+  /* EMAIL - rendered via JS to avoid preview obfuscation */
+  (function(){
+    const u='leonardosilva7002', d='gmail.com';
+    const el=document.getElementById('ctEmail');
+    if(el) el.textContent = u+'@'+d;
+  })();
+
+  /* LANG */
+  function applyLang(l){
+    lang=l;
+    document.querySelectorAll('[data-pt],[data-en]').forEach(el=>{
+      const v=el.getAttribute('data-'+l); if(!v) return;
+      if(v.includes('<')) el.innerHTML=v; else el.textContent=v;
+    });
+    const next=l==='pt'?'EN':'PT';
+    document.querySelectorAll('.ll').forEach(e=>e.textContent=next);
+    const ph={fn:l==='pt'?'O teu nome':'Your name',fe:l==='pt'?'o.teu@email.com':'your@email.com',fs:l==='pt'?'Sobre o quê?':'About what?',fm:l==='pt'?'Escreve a tua mensagem aqui...':'Write your message here...'};
+    Object.entries(ph).forEach(([id,p])=>{const el=document.getElementById(id);if(el)el.placeholder=p;});
+    updateTL();
+  }
+  function updateTL(){
+    const t=dark?(lang==='pt'?'Claro':'Light'):(lang==='pt'?'Escuro':'Dark');
+    document.querySelectorAll('.tl').forEach(e=>e.textContent=t);
+  }
+  document.getElementById('langBtn').addEventListener('click',()=>applyLang(lang==='pt'?'en':'pt'));
+  document.getElementById('langBtnM').addEventListener('click',()=>applyLang(lang==='pt'?'en':'pt'));
+
+  /* THEME */
+  function setTheme(d){dark=d;document.documentElement.setAttribute('data-theme',d?'dark':'light');updateTL();}
+  document.getElementById('themeBtn').addEventListener('click',()=>setTheme(!dark));
+  document.getElementById('themeBtnM').addEventListener('click',()=>setTheme(!dark));
+
+  /* HAMBURGER */
+  const ham=document.getElementById('ham'),mob=document.getElementById('mob');
+  ham.addEventListener('click',()=>mob.classList.toggle('open'));
+  mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mob.classList.remove('open')));
+
+  /* REVEAL - add js-ready so CSS animations activate, then observe */
+  document.body.classList.add('js-ready');
+
+  function revealAll(){document.querySelectorAll('.r').forEach(el=>el.classList.add('in'));}
+
+  if('IntersectionObserver' in window){
+    setTimeout(revealAll, 800);
+    const ro=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          if(!skDone && e.target.closest('#skGrid')) animateSk();
+        }
+      });
+    },{threshold:.05,rootMargin:'0px 0px 0px 0px'});
+    document.querySelectorAll('.r').forEach((el,i)=>{
+      if(!el.style.transitionDelay) el.style.transitionDelay=`${(i%5)*.06}s`;
+      ro.observe(el);
+    });
+    setTimeout(()=>{
+      document.querySelectorAll('.r:not(.in)').forEach(el=>{
+        const rect=el.getBoundingClientRect();
+        if(rect.top < window.innerHeight + 200) el.classList.add('in');
+      });
+    }, 100);
+  } else {
+    revealAll();
+  }
+
+  /* SKILLS */
+  function animateSk(){skDone=true;document.querySelectorAll('.sk-fi').forEach(f=>f.style.width=f.dataset.v+'%');}
+  setTimeout(()=>{const g=document.getElementById('skGrid');if(g&&g.getBoundingClientRect().top<window.innerHeight)animateSk();},400);
+
+  /* ACTIVE NAV */
+  const secs=[...document.querySelectorAll('section[id],div[id]')];
+  const navAs=document.querySelectorAll('.nav-center a');
+  window.addEventListener('scroll',()=>{
+    let cur='';
+    secs.forEach(s=>{if(window.scrollY>=s.offsetTop-140)cur=s.id;});
+    navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+  },{passive:true});
+
+  /* FORM */
+  document.getElementById('cForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    const st=document.getElementById('fst'),btn=document.getElementById('sbtn'),orig=btn.innerHTML;
+    btn.disabled=true;
+    btn.innerHTML=`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> <span>${lang==='pt'?'A enviar...':'Sending...'}</span>`;
+    emailjs.send('service_4s19gik','template_b765jkk',{
+      from_name: document.getElementById('fn').value,
+      from_email:document.getElementById('fe').value,
+      subject:   document.getElementById('fs').value||'(sem assunto)',
+      message:   document.getElementById('fm').value,
+    }).then(()=>{
+      st.className='fst ok';
+      st.textContent=lang==='pt'?'✓ Mensagem enviada com sucesso! Responderei em breve.':'✓ Message sent! I will reply soon.';
+      this.reset();btn.disabled=false;btn.innerHTML=orig;
+      setTimeout(()=>st.className='fst',6000);
+    }).catch(err=>{
+      console.error(err);
+      st.className='fst err';
+      st.textContent=lang==='pt'?'✗ Erro ao enviar. Tenta novamente.':'✗ Error sending. Please try again.';
+      btn.disabled=false;btn.innerHTML=orig;
+      setTimeout(()=>st.className='fst',6000);
+    });
+  });
+</script>
+</body>
+</html>
