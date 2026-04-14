@@ -232,7 +232,7 @@
   <div class="nav-right">
     <button class="pill" id="langBtn"><span class="ll">EN</span></button>
     <button class="pill" id="themeBtn"><span class="tl">Claro</span></button>
-    <a href="leonardo_silva_cv.pdf" class="btn-ink" style="font-size:.72rem;padding:.5rem 1.1rem;" download="leonardo_silva_cv.pdf">
+    <a href="leonardo_silva_cv.pdf" id="cvBtn" class="btn-ink" style="font-size:.72rem;padding:.5rem 1.1rem;" download="leonardo_silva_cv.pdf">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       CV
     </a>
@@ -250,7 +250,7 @@
   <div class="mob-ctrls">
     <button class="pill" id="langBtnM"><span class="ll">EN</span></button>
     <button class="pill" id="themeBtnM"><span class="tl">Claro</span></button>
-    <a href="leonardo_silva_cv.pdf" class="pill" download="leonardo_silva_cv.pdf" style="display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;">
+    <a href="leonardo_silva_cv.pdf" id="cvBtnM" class="pill" download="leonardo_silva_cv.pdf" style="display:inline-flex;align-items:center;gap:.4rem;text-decoration:none;">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       CV
     </a>
@@ -529,6 +529,9 @@
     });
     const next=l==='pt'?'EN':'PT';
     document.querySelectorAll('.ll').forEach(e=>e.textContent=next);
+    const cvFile=l==='pt'?'leonardo_silva_cv.pdf':'leonardo_silva_cv_english.pdf';
+    const cvName=l==='pt'?'leonardo_silva_cv.pdf':'leonardo_silva_cv_english.pdf';
+    ['cvBtn','cvBtnM'].forEach(id=>{const el=document.getElementById(id);if(el){el.href=cvFile;el.download=cvName;}});
     const ph={fn:l==='pt'?'O teu nome':'Your name',fe:l==='pt'?'o.teu@email.com':'your@email.com',fs:l==='pt'?'Sobre o quê?':'About what?',fm:l==='pt'?'Escreve a tua mensagem aqui...':'Write your message here...'};
     Object.entries(ph).forEach(([id,p])=>{const el=document.getElementById(id);if(el)el.placeholder=p;});
     updateTL();
