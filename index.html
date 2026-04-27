@@ -116,37 +116,128 @@
     .stn{font-family:var(--ff-d);font-size:1.75rem;font-weight:700;line-height:1;margin-bottom:.35rem;}
     .stl{font-size:.7rem;color:var(--ink-4);letter-spacing:.1em;text-transform:uppercase;}
 
-    /* PROJECTS */
-    .proj-item{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--rule);transition:padding .5s cubic-bezier(0.16,1,0.3,1);}
-    .proj-item:first-child{border-top:1px solid var(--rule);}
-    .proj-item:hover{padding-left:.35rem;}
-    .proj-item:hover .parr{opacity:1;transform:translateX(4px);}
-    .pnum{font-family:var(--ff-d);font-size:.8rem;font-style:italic;color:var(--ink-4);text-align:right;}
-    .ptitle{font-family:var(--ff-d);font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:700;letter-spacing:-.01em;margin-bottom:.4rem;}
-    .pmeta{display:flex;align-items:center;gap:1rem;margin-bottom:.6rem;}
-    .pst{font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .6rem;border:1px solid;}
-    .st-live{color:#6b7c45;border-color:#6b7c45;background:rgba(107,124,69,.07);}
-    .st-done{color:var(--warm);border-color:var(--warm);background:rgba(139,111,71,.07);}
-    .pyr{font-size:.72rem;color:var(--ink-4);letter-spacing:.1em;}
-    .pdesc{font-size:.875rem;color:var(--ink-3);line-height:1.7;max-width:520px;}
-    .ptags{display:flex;gap:.4rem;margin-top:.75rem;flex-wrap:wrap;}
-    .pt{font-size:.67rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);padding:.2rem .55rem;border:1px solid var(--rule);}
-    .proj-mob-btn{display:none;}
-    .parr{display:inline-flex;align-items:center;gap:.35rem;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);opacity:.35;transition:opacity .6s cubic-bezier(0.25,0.46,0.45,0.94),transform .6s cubic-bezier(0.25,0.46,0.45,0.94);}
-    .parr svg{width:14px;height:14px;}
+    /* ── PROJECTS — CARDS ── */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .proj-card {
+      border: 1px solid var(--rule);
+      background: var(--cream-2);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s cubic-bezier(0.16,1,0.3,1);
+      cursor: default;
+    }
+    .proj-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(0,0,0,.18);
+    }
+    /* visual banner */
+    .pc-banner {
+      height: 160px;
+      position: relative;
+      overflow: hidden;
+      background: var(--cream-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--rule);
+    }
+    .pc-banner-num {
+      font-family: var(--ff-d);
+      font-size: 6rem;
+      font-weight: 900;
+      color: var(--rule);
+      line-height: 1;
+      user-select: none;
+      transition: transform .5s cubic-bezier(0.16,1,0.3,1), color .4s;
+    }
+    .proj-card:hover .pc-banner-num {
+      transform: scale(1.1);
+      color: rgba(196,154,108,.18);
+    }
+    /* color accent strip */
+    .pc-strip {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .pc-strip-live  { background: #6b7c45; }
+    .pc-strip-done  { background: var(--warm); }
+    .pc-strip-priv  { background: var(--ink-4); }
 
-    /* SKILLS */
-    .sk-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);}
-    .sk-cell{padding:1.75rem 2rem;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);transition:background .25s;}
-    .sk-cell:hover{background:var(--cream-2);}
-    .sk-cell:nth-child(even){border-right:none;}
-    .sk-cell:nth-last-child(-n+2){border-bottom:none;}
-    .sk-hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem;}
-    .sk-nm{font-family:var(--ff-d);font-size:1.1rem;font-weight:700;}
-    .sk-pc{font-family:var(--ff-d);font-size:1.4rem;font-weight:900;color:var(--ink-4);line-height:1;}
-    .sk-tr{height:3px;background:var(--rule);position:relative;overflow:hidden;}
-    .sk-fi{position:absolute;top:0;left:0;bottom:0;background:var(--ink);width:0%;transition:width 1.4s cubic-bezier(.4,0,.2,1);}
-    .sk-sb{font-size:.7rem;color:var(--ink-4);letter-spacing:.1em;text-transform:uppercase;margin-top:.6rem;}
+    .pc-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; gap: .75rem; }
+    .pc-meta { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+    .pc-num  { font-family: var(--ff-d); font-size: .7rem; font-style: italic; color: var(--ink-4); }
+    .pst { font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; padding: .22rem .55rem; border: 1px solid; }
+    .st-live { color: #6b7c45; border-color: #6b7c45; background: rgba(107,124,69,.07); }
+    .st-done { color: var(--warm); border-color: var(--warm); background: rgba(139,111,71,.07); }
+    .st-priv { color: var(--ink-4); border-color: var(--ink-4); background: rgba(94,87,78,.07); }
+    .pc-yr   { font-size: .68rem; color: var(--ink-4); letter-spacing: .08em; }
+
+    .pc-title { font-family: var(--ff-d); font-size: 1.1rem; font-weight: 700; line-height: 1.3; letter-spacing: -.01em; }
+    .pc-desc  { font-size: .83rem; color: var(--ink-3); line-height: 1.7; font-weight: 300; flex: 1; }
+    .pc-tags  { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .pt { font-size: .63rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-4); padding: .18rem .5rem; border: 1px solid var(--rule); }
+
+    .pc-foot {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pc-link {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      transition: color .2s, gap .2s;
+    }
+    .pc-link:hover { color: var(--warm); gap: .6rem; }
+    .pc-link svg { width: 13px; height: 13px; }
+    .pc-lock { font-size: .7rem; color: var(--ink-4); display: inline-flex; align-items: center; gap: .3rem; }
+    .pc-lock svg { width: 12px; height: 12px; }
+
+    /* ── SKILLS — LINE CHART ── */
+    .sk-chart-wrap {
+      border: 1px solid var(--rule);
+      padding: 2rem;
+      background: var(--cream-2);
+      position: relative;
+    }
+    .sk-chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .sk-leg-item {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      color: var(--ink-3);
+    }
+    .sk-leg-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .sk-canvas-wrap { position: relative; width: 100%; }
+    canvas#skChart { display: block; width: 100% !important; }
 
     /* CONTACT */
     .ct-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start;}
@@ -181,38 +272,33 @@
     .fl em{font-style:italic;color:var(--warm);}
     .fc{font-size:.72rem;color:var(--ink-4);letter-spacing:.08em;}
 
-    /* REVEAL - visible by default, animate as enhancement */
+    /* REVEAL */
     .r{opacity:1;transform:translateY(0);}
     .js-ready .r{opacity:0;transform:translateY(22px);transition:opacity .7s var(--eo),transform .7s var(--eo);}
     .js-ready .r.in{opacity:1;transform:translateY(0);}
 
     /* RESPONSIVE */
+    @media(max-width:1024px){
+      .proj-grid{grid-template-columns:repeat(2,1fr);}
+    }
     @media(max-width:960px){
       .ab-grid{grid-template-columns:1fr;gap:2.5rem;}
       .ab-port{max-width:260px;}
       .ct-grid{grid-template-columns:1fr;gap:3rem;}
-      .sk-grid{grid-template-columns:1fr;}
-      .sk-cell:nth-child(even){border-right:1px solid var(--rule);}
-      .sk-cell:nth-last-child(-n+2){border-bottom:1px solid var(--rule);}
-      .sk-cell:last-child{border-bottom:none;}
     }
     @media(max-width:768px){
       .nav-center,.nav-right{display:none;}
       .ham{display:flex;}
       .h-bot{flex-direction:column;align-items:flex-start;}
-      .proj-item{grid-template-columns:40px 1fr;grid-template-rows:auto auto;}
-      .p-right{display:none;}
-      .proj-item .pnum{grid-row:1;grid-column:1;}
-      .proj-item > div:not(.p-right){grid-row:1;grid-column:2;}
-      .proj-mob-btn{grid-row:2;grid-column:2;display:inline-flex;align-items:center;gap:.45rem;margin-top:.85rem;font-family:var(--ff-b);font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.1rem;background:var(--ink);color:var(--cream);border:1px solid var(--ink);border-radius:2px;text-decoration:none;transition:background .2s,border-color .2s;align-self:start;justify-self:start;}
-      .proj-mob-btn:hover{background:var(--warm);border-color:var(--warm);}
-      .proj-mob-btn svg{width:12px;height:12px;}
       .ab-stats{grid-template-columns:1fr 1fr;}
       .stat:last-child{border-right:1px solid var(--rule);grid-column:span 2;border-top:1px solid var(--rule);}
+      .proj-grid{grid-template-columns:1fr;}
+      .sk-chart-wrap{padding:1.25rem;}
     }
     @media(max-width:480px){
       .h-ctas{flex-direction:column;width:100%;}
       .btn-ink,.btn-ghost{justify-content:center;}
+      .pc-banner{height:120px;}
     }
     @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
   </style>
@@ -328,123 +414,118 @@
 
 <hr class="rule"/>
 
-<!-- PROJECTS -->
+<!-- PROJECTS — CARDS -->
 <div class="w" id="projects">
   <div class="sh r">
     <div><span class="sn">02 —</span><span class="st" data-pt="<em>Projetos</em>" data-en="<em>Projects</em>"><em>Projetos</em></span></div>
     <span class="ss" data-pt="O meu trabalho" data-en="My work">O meu trabalho</span>
   </div>
 
-  <div class="proj-item r">
-    <div class="pnum">01</div>
-    <div>
-      <h3 class="ptitle">Matrix Lab Project</h3>
-      <div class="pmeta">
-        <span class="pst st-live" data-pt="Publicado" data-en="Live">Publicado</span>
-        <span class="pyr">2024 — 2025</span>
-      </div>
-      <p class="pdesc" data-pt="Projeto interativo desenvolvido para explorar e demonstrar competências de desenvolvimento web. Interface envolvente com foco na experiência do utilizador." data-en="Interactive project developed to explore and showcase web development skills. Engaging interface focused on user experience.">
-        Projeto interativo desenvolvido para explorar e demonstrar competências de desenvolvimento web. Interface envolvente com foco na experiência do utilizador.
-      </p>
-      <div class="ptags"><span class="pt">HTML</span><span class="pt">CSS</span><span class="pt">JavaScript</span></div>
-    </div>
-    <div class="p-right">
-      <a href="https://matrixlab-gold.vercel.app" target="_blank" rel="noopener" class="parr">
-        <span data-pt="Ver" data-en="View">Ver</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
-    <a href="https://matrixlab-gold.vercel.app" target="_blank" rel="noopener" class="proj-mob-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      <span data-pt="Ver Projeto" data-en="View Project">Ver Projeto</span>
-    </a>
-  </div>
+  <div class="proj-grid">
 
-  <div class="proj-item r" style="transition-delay:.1s">
-    <div class="pnum">02</div>
-    <div>
-      <h3 class="ptitle" data-pt="Cabeleireiro Soraia Santos" data-en="Soraia Santos Hair Salon">Cabeleireiro Soraia Santos</h3>
-      <div class="pmeta">
-        <span class="pst st-live" data-pt="Publicado" data-en="Live">Publicado</span>
-        <span class="pyr">2025 — 2026</span>
+    <!-- Card 01 -->
+    <div class="proj-card r">
+      <div class="pc-banner">
+        <span class="pc-banner-num">01</span>
+        <div class="pc-strip pc-strip-live"></div>
       </div>
-      <p class="pdesc" data-pt="Website desenvolvido para um cabeleireiro em Braga. Inclui portefólio de trabalhos, sistema de marcações, avaliações e página de contacto. Design elegante com foco na experiência do cliente." data-en="Website developed for a hair salon in Braga. Includes a portfolio of work, booking system, reviews and contact page. Elegant design focused on the client experience.">
-        Website desenvolvido para um cabeleireiro em Braga. Inclui portefólio de trabalhos, sistema de marcações, avaliações e página de contacto. Design elegante com foco na experiência do cliente.
-      </p>
-      <div class="ptags"><span class="pt">HTML</span><span class="pt">CSS</span><span class="pt">JavaScript</span></div>
+      <div class="pc-body">
+        <div class="pc-meta">
+          <span class="pc-num">01</span>
+          <span class="pst st-live" data-pt="Publicado" data-en="Live">Publicado</span>
+          <span class="pc-yr">2024 — 2025</span>
+        </div>
+        <h3 class="pc-title">Matrix Lab Project</h3>
+        <p class="pc-desc" data-pt="Projeto interativo desenvolvido para explorar e demonstrar competências de desenvolvimento web. Interface envolvente com foco na experiência do utilizador." data-en="Interactive project to explore and showcase web development skills. Engaging interface focused on user experience.">
+          Projeto interativo desenvolvido para explorar e demonstrar competências de desenvolvimento web. Interface envolvente com foco na experiência do utilizador.
+        </p>
+        <div class="pc-tags">
+          <span class="pt">HTML</span><span class="pt">CSS</span><span class="pt">JavaScript</span>
+        </div>
+      </div>
+      <div class="pc-foot">
+        <a href="https://matrixlab-gold.vercel.app" target="_blank" rel="noopener" class="pc-link">
+          <span data-pt="Ver Projeto" data-en="View Project">Ver Projeto</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
     </div>
-    <div class="p-right">
-      <a href="https://cabeleireirosoraiasantos.vercel.app" target="_blank" rel="noopener" class="parr">
-        <span data-pt="Ver" data-en="View">Ver</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
-    <a href="https://cabeleireirosoraiasantos.vercel.app" target="_blank" rel="noopener" class="proj-mob-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      <span data-pt="Ver Projeto" data-en="View Project">Ver Projeto</span>
-    </a>
-  </div>
 
-  <div class="proj-item r" style="transition-delay:.2s">
-    <div class="pnum">03</div>
-    <div>
-      <h3 class="ptitle" data-pt="PAP — Prova de Aptidão Profissional" data-en="PAP — Professional Aptitude Test">PAP — Prova de Aptidão Profissional</h3>
-      <div class="pmeta">
-        <span class="pst st-done" data-pt="Concluído" data-en="Completed">Concluído</span>
-        <span class="pyr">2025 · <span data-pt="Avaliação 12.º ano" data-en="12th Grade Assessment">Avaliação 12.º ano</span></span>
+    <!-- Card 02 -->
+    <div class="proj-card r" style="transition-delay:.08s">
+      <div class="pc-banner">
+        <span class="pc-banner-num">02</span>
+        <div class="pc-strip pc-strip-live"></div>
       </div>
-      <p class="pdesc" data-pt="Projeto de conclusão do curso na área de Informática, desenvolvido como avaliação final do 12.º ano. Aplicação prática de todos os conhecimentos técnicos adquiridos ao longo da formação. Projeto concluído, não publicado publicamente." data-en="Course completion project in the IT area, developed as the final assessment of the 12th grade. Practical application of all technical knowledge acquired throughout the course. Project completed, not publicly published.">
-        Projeto de conclusão do curso na área de Informática, desenvolvido como avaliação final do 12.º ano. Aplicação prática de todos os conhecimentos técnicos adquiridos ao longo da formação. Projeto concluído, não publicado publicamente.
-      </p>
-      <div class="ptags"><span class="pt">PHP</span><span class="pt">SQL</span><span class="pt">HTML</span><span class="pt">CSS</span><span class="pt">JavaScript</span></div>
+      <div class="pc-body">
+        <div class="pc-meta">
+          <span class="pc-num">02</span>
+          <span class="pst st-live" data-pt="Publicado" data-en="Live">Publicado</span>
+          <span class="pc-yr">2025 — 2026</span>
+        </div>
+        <h3 class="pc-title" data-pt="Cabeleireiro Soraia Santos" data-en="Soraia Santos Hair Salon">Cabeleireiro Soraia Santos</h3>
+        <p class="pc-desc" data-pt="Website desenvolvido para um cabeleireiro em Braga. Inclui portefólio de trabalhos, sistema de marcações, avaliações e página de contacto." data-en="Website for a hair salon in Braga. Includes a portfolio, booking system, reviews and contact page.">
+          Website desenvolvido para um cabeleireiro em Braga. Inclui portefólio de trabalhos, sistema de marcações, avaliações e página de contacto.
+        </p>
+        <div class="pc-tags">
+          <span class="pt">HTML</span><span class="pt">CSS</span><span class="pt">JavaScript</span>
+        </div>
+      </div>
+      <div class="pc-foot">
+        <a href="https://cabeleireirosoraiasantos.vercel.app" target="_blank" rel="noopener" class="pc-link">
+          <span data-pt="Ver Projeto" data-en="View Project">Ver Projeto</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
     </div>
-    <div class="p-right">
-      <span class="parr" style="cursor:default">
-        <span data-pt="Privado" data-en="Private">Privado</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      </span>
+
+    <!-- Card 03 -->
+    <div class="proj-card r" style="transition-delay:.16s">
+      <div class="pc-banner">
+        <span class="pc-banner-num">03</span>
+        <div class="pc-strip pc-strip-done"></div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-meta">
+          <span class="pc-num">03</span>
+          <span class="pst st-done" data-pt="Concluído" data-en="Completed">Concluído</span>
+          <span class="pc-yr">2025</span>
+        </div>
+        <h3 class="pc-title" data-pt="PAP — Prova de Aptidão Profissional" data-en="PAP — Professional Aptitude Test">PAP — Prova de Aptidão Profissional</h3>
+        <p class="pc-desc" data-pt="Projeto de conclusão do curso na área de Informática. Aplicação prática de todos os conhecimentos técnicos adquiridos ao longo da formação." data-en="Course completion project in IT. Practical application of all technical knowledge acquired throughout the course.">
+          Projeto de conclusão do curso na área de Informática. Aplicação prática de todos os conhecimentos técnicos adquiridos ao longo da formação.
+        </p>
+        <div class="pc-tags">
+          <span class="pt">PHP</span><span class="pt">SQL</span><span class="pt">HTML</span><span class="pt">CSS</span><span class="pt">JavaScript</span>
+        </div>
+      </div>
+      <div class="pc-foot">
+        <span class="pc-lock">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span data-pt="Privado" data-en="Private">Privado</span>
+        </span>
+        <span class="pc-yr" data-pt="Avaliação 12.º ano" data-en="12th Grade Assessment">Avaliação 12.º ano</span>
+      </div>
     </div>
+
   </div>
 </div>
 
 <hr class="rule"/>
 
-<!-- SKILLS -->
+<!-- SKILLS — LINE CHART -->
 <div class="w" id="skills">
   <div class="sh r">
     <div><span class="sn">03 —</span><span class="st" data-pt="<em>Skills</em>" data-en="<em>Skills</em>"><em>Skills</em></span></div>
     <span class="ss" data-pt="Tecnologias" data-en="Technologies">Tecnologias</span>
   </div>
-  <div class="sk-grid" id="skGrid">
-    <div class="sk-cell r">
-      <div class="sk-hd"><span class="sk-nm">HTML</span><span class="sk-pc">85</span></div>
-      <div class="sk-tr"><div class="sk-fi" data-v="85"></div></div>
-      <div class="sk-sb" data-pt="Estrutura · Semântica" data-en="Structure · Semantics">Estrutura · Semântica</div>
+
+  <div class="sk-chart-wrap r">
+    <div class="sk-chart-legend" id="skLegend">
+      <!-- filled by JS -->
     </div>
-    <div class="sk-cell r" style="transition-delay:.05s">
-      <div class="sk-hd"><span class="sk-nm">CSS</span><span class="sk-pc">75</span></div>
-      <div class="sk-tr"><div class="sk-fi" data-v="75"></div></div>
-      <div class="sk-sb" data-pt="Estilo · Layout · Animações" data-en="Style · Layout · Animations">Estilo · Layout · Animações</div>
-    </div>
-    <div class="sk-cell r" style="transition-delay:.1s">
-      <div class="sk-hd"><span class="sk-nm">JavaScript</span><span class="sk-pc">60</span></div>
-      <div class="sk-tr"><div class="sk-fi" data-v="60"></div></div>
-      <div class="sk-sb" data-pt="Interatividade · Lógica" data-en="Interactivity · Logic">Interatividade · Lógica</div>
-    </div>
-    <div class="sk-cell r" style="transition-delay:.15s">
-      <div class="sk-hd"><span class="sk-nm">PHP</span><span class="sk-pc">55</span></div>
-      <div class="sk-tr"><div class="sk-fi" data-v="55"></div></div>
-      <div class="sk-sb" data-pt="Backend · Servidor" data-en="Backend · Server">Backend · Servidor</div>
-    </div>
-    <div class="sk-cell r" style="transition-delay:.2s">
-      <div class="sk-hd"><span class="sk-nm">SQL</span><span class="sk-pc">60</span></div>
-      <div class="sk-tr"><div class="sk-fi" data-v="60"></div></div>
-      <div class="sk-sb" data-pt="Consultas · Bases de Dados" data-en="Queries · Databases">Consultas · Bases de Dados</div>
-    </div>
-    <div class="sk-cell r" style="transition-delay:.25s">
-      <div class="sk-hd"><span class="sk-nm" data-pt="Bases de Dados" data-en="Databases">Bases de Dados</span><span class="sk-pc">58</span></div>
-      <div class="sk-tr"><div class="sk-fi" data-v="58"></div></div>
-      <div class="sk-sb" data-pt="MySQL · Modelação" data-en="MySQL · Modelling">MySQL · Modelação</div>
+    <div class="sk-canvas-wrap">
+      <canvas id="skChart" height="320"></canvas>
     </div>
   </div>
 </div>
@@ -507,13 +588,12 @@
   <span class="fc" data-pt="Feito com ☕ e curiosidade" data-en="Made with ☕ and curiosity">Feito com ☕ e curiosidade</span>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  /* STATE */
+<script>
+  /* ── STATE ── */
   let lang = 'pt';
   let dark = true;
-  let skDone = false;
 
-  /* EMAIL - rendered via JS to avoid preview obfuscation */
+  /* EMAIL */
   (function(){
     const u='leonardosilva7002', d='gmail.com';
     const el=document.getElementById('ctEmail');
@@ -530,11 +610,11 @@
     const next=l==='pt'?'EN':'PT';
     document.querySelectorAll('.ll').forEach(e=>e.textContent=next);
     const cvFile=l==='pt'?'leonardo_silva_cv.pdf':'leonardo_silva_cv_english.pdf';
-    const cvName=l==='pt'?'leonardo_silva_cv.pdf':'leonardo_silva_cv_english.pdf';
-    ['cvBtn','cvBtnM'].forEach(id=>{const el=document.getElementById(id);if(el){el.href=cvFile;el.download=cvName;}});
+    ['cvBtn','cvBtnM'].forEach(id=>{const el=document.getElementById(id);if(el){el.href=cvFile;el.download=cvFile;}});
     const ph={fn:l==='pt'?'O teu nome':'Your name',fe:l==='pt'?'o.teu@email.com':'your@email.com',fs:l==='pt'?'Sobre o quê?':'About what?',fm:l==='pt'?'Escreve a tua mensagem aqui...':'Write your message here...'};
     Object.entries(ph).forEach(([id,p])=>{const el=document.getElementById(id);if(el)el.placeholder=p;});
     updateTL();
+    drawChart(); // redraw labels on lang change
   }
   function updateTL(){
     const t=dark?(lang==='pt'?'Claro':'Light'):(lang==='pt'?'Escuro':'Dark');
@@ -544,7 +624,7 @@
   document.getElementById('langBtnM').addEventListener('click',()=>applyLang(lang==='pt'?'en':'pt'));
 
   /* THEME */
-  function setTheme(d){dark=d;document.documentElement.setAttribute('data-theme',d?'dark':'light');updateTL();}
+  function setTheme(d){dark=d;document.documentElement.setAttribute('data-theme',d?'dark':'light');updateTL();drawChart();}
   document.getElementById('themeBtn').addEventListener('click',()=>setTheme(!dark));
   document.getElementById('themeBtnM').addEventListener('click',()=>setTheme(!dark));
 
@@ -553,21 +633,19 @@
   ham.addEventListener('click',()=>mob.classList.toggle('open'));
   mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mob.classList.remove('open')));
 
-  /* REVEAL - add js-ready so CSS animations activate, then observe */
+  /* REVEAL */
   document.body.classList.add('js-ready');
-
   function revealAll(){document.querySelectorAll('.r').forEach(el=>el.classList.add('in'));}
-
   if('IntersectionObserver' in window){
-    setTimeout(revealAll, 800);
+    setTimeout(revealAll,800);
     const ro=new IntersectionObserver(entries=>{
       entries.forEach(e=>{
         if(e.isIntersecting){
           e.target.classList.add('in');
-          if(!skDone && e.target.closest('#skGrid')) animateSk();
+          if(e.target.closest('#skills')) triggerChart();
         }
       });
-    },{threshold:.05,rootMargin:'0px 0px 0px 0px'});
+    },{threshold:.05});
     document.querySelectorAll('.r').forEach((el,i)=>{
       if(!el.style.transitionDelay) el.style.transitionDelay=`${(i%5)*.06}s`;
       ro.observe(el);
@@ -575,16 +653,10 @@
     setTimeout(()=>{
       document.querySelectorAll('.r:not(.in)').forEach(el=>{
         const rect=el.getBoundingClientRect();
-        if(rect.top < window.innerHeight + 200) el.classList.add('in');
+        if(rect.top<window.innerHeight+200) el.classList.add('in');
       });
-    }, 100);
-  } else {
-    revealAll();
-  }
-
-  /* SKILLS */
-  function animateSk(){skDone=true;document.querySelectorAll('.sk-fi').forEach(f=>f.style.width=f.dataset.v+'%');}
-  setTimeout(()=>{const g=document.getElementById('skGrid');if(g&&g.getBoundingClientRect().top<window.innerHeight)animateSk();},400);
+    },100);
+  } else { revealAll(); }
 
   /* ACTIVE NAV */
   const secs=[...document.querySelectorAll('section[id],div[id]')];
@@ -618,6 +690,263 @@
       btn.disabled=false;btn.innerHTML=orig;
       setTimeout(()=>st.className='fst',6000);
     });
+  });
+
+  /* ────────────────────────────────────────
+     SKILLS LINE CHART
+     Draws a multi-line area chart with Canvas
+  ──────────────────────────────────────── */
+  const SK_DATA = {
+    labels: {
+      pt: ['HTML','CSS','JavaScript','PHP','SQL','Bases de Dados'],
+      en: ['HTML','CSS','JavaScript','PHP','SQL','Databases'],
+    },
+    values: [85, 75, 60, 55, 60, 58],
+    // categories for sub-labels
+    sub: {
+      pt: ['Estrutura · Semântica','Estilo · Layout','Interatividade','Backend','Consultas','MySQL · Modelação'],
+      en: ['Structure · Semantics','Style · Layout','Interactivity','Backend','Queries','MySQL · Modelling'],
+    }
+  };
+
+  // warm accent colors per skill
+  const SK_COLORS = [
+    '#c49a6c', // HTML  — warm
+    '#8fa868', // CSS   — green
+    '#7aaec4', // JS    — blue
+    '#c48a6c', // PHP   — terracotta
+    '#a48dc4', // SQL   — purple
+    '#c4b46c', // DB    — gold
+  ];
+
+  let chartAnimProgress = 0;
+  let chartAnimId = null;
+  let chartTriggered = false;
+
+  function triggerChart(){
+    if(chartTriggered) return;
+    chartTriggered = true;
+    animateChart();
+  }
+
+  function animateChart(){
+    cancelAnimationFrame(chartAnimId);
+    chartAnimProgress = 0;
+    const start = performance.now();
+    const dur = 1400;
+    function step(now){
+      const t = Math.min((now - start) / dur, 1);
+      // ease out quart
+      chartAnimProgress = 1 - Math.pow(1-t, 4);
+      drawChart(chartAnimProgress);
+      if(t < 1) chartAnimId = requestAnimationFrame(step);
+    }
+    chartAnimId = requestAnimationFrame(step);
+  }
+
+  function getColors(){
+    const style = getComputedStyle(document.documentElement);
+    return {
+      ink:   style.getPropertyValue('--ink').trim()   || '#f0ebe2',
+      ink3:  style.getPropertyValue('--ink-3').trim() || '#9e9488',
+      ink4:  style.getPropertyValue('--ink-4').trim() || '#5e574e',
+      rule:  dark ? 'rgba(240,235,226,0.07)' : 'rgba(26,22,18,0.08)',
+      bg:    style.getPropertyValue('--cream-2').trim() || '#1c1916',
+    };
+  }
+
+  function drawChart(progress){
+    if(progress === undefined) progress = chartAnimProgress;
+    const canvas = document.getElementById('skChart');
+    if(!canvas) return;
+
+    // HiDPI
+    const wrap = canvas.parentElement;
+    const W = wrap.clientWidth;
+    const H = 320;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.height = H + 'px';
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const c = getColors();
+    const labels = SK_DATA.labels[lang] || SK_DATA.labels.pt;
+    const vals   = SK_DATA.values;
+    const n      = labels.length;
+
+    const PAD_L = W < 500 ? 36 : 52;
+    const PAD_R = 24;
+    const PAD_T = 24;
+    const PAD_B = W < 500 ? 52 : 44;
+    const cW = W - PAD_L - PAD_R;
+    const cH = H - PAD_T - PAD_B;
+
+    const xOf = (i) => PAD_L + (i / (n-1)) * cW;
+    const yOf = (v) => PAD_T + cH - (v / 100) * cH;
+
+    /* --- grid lines --- */
+    ctx.strokeStyle = c.rule;
+    ctx.lineWidth = 1;
+    [0, 25, 50, 75, 100].forEach(v => {
+      const y = yOf(v);
+      ctx.beginPath();
+      ctx.moveTo(PAD_L, y);
+      ctx.lineTo(PAD_L + cW, y);
+      ctx.stroke();
+      // y-axis label
+      ctx.fillStyle = c.ink4;
+      ctx.font = `500 ${W < 500 ? 9 : 10}px 'Epilogue', sans-serif`;
+      ctx.textAlign = 'right';
+      ctx.fillText(v, PAD_L - 8, y + 3.5);
+    });
+
+    /* --- vertical lines (x-axis) --- */
+    for(let i=0; i<n; i++){
+      ctx.strokeStyle = c.rule;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(xOf(i), PAD_T);
+      ctx.lineTo(xOf(i), PAD_T + cH);
+      ctx.stroke();
+    }
+
+    /* --- animated area fill (single gradient under the line) --- */
+    // build the animated line path up to progress
+    const animLen = Math.floor(progress * (n - 1)); // how many full segments done
+    const frac    = (progress * (n-1)) - animLen;   // fraction of current segment
+
+    // create the path
+    const areaPath = new Path2D();
+    areaPath.moveTo(xOf(0), PAD_T + cH); // start at bottom left
+    areaPath.lineTo(xOf(0), yOf(vals[0]));
+
+    for(let i=1; i<n; i++){
+      if(i - 1 < animLen){
+        areaPath.lineTo(xOf(i), yOf(vals[i]));
+      } else if(i - 1 === animLen && frac > 0){
+        const px = xOf(i-1) + frac * (xOf(i) - xOf(i-1));
+        const py = yOf(vals[i-1]) + frac * (yOf(vals[i]) - yOf(vals[i-1]));
+        areaPath.lineTo(px, py);
+        // close to bottom
+        areaPath.lineTo(px, PAD_T + cH);
+        break;
+      }
+      if(i === n-1 && animLen >= n-1){
+        areaPath.lineTo(xOf(i), PAD_T + cH);
+      }
+    }
+    areaPath.closePath();
+
+    const grad = ctx.createLinearGradient(0, PAD_T, 0, PAD_T + cH);
+    grad.addColorStop(0,   dark ? 'rgba(196,154,108,0.18)' : 'rgba(139,111,71,0.14)');
+    grad.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.fill(areaPath);
+
+    /* --- main line (animated) --- */
+    ctx.beginPath();
+    ctx.strokeStyle = '#c49a6c';
+    ctx.lineWidth   = 2;
+    ctx.lineJoin    = 'round';
+    ctx.lineCap     = 'round';
+
+    for(let i=0; i<n; i++){
+      if(i === 0){
+        ctx.moveTo(xOf(0), yOf(vals[0]));
+      } else if(i - 1 < animLen){
+        ctx.lineTo(xOf(i), yOf(vals[i]));
+      } else if(i - 1 === animLen && frac > 0){
+        const px = xOf(i-1) + frac*(xOf(i)-xOf(i-1));
+        const py = yOf(vals[i-1]) + frac*(yOf(vals[i])-yOf(vals[i-1]));
+        ctx.lineTo(px, py);
+        break;
+      }
+    }
+    ctx.stroke();
+
+    /* --- dots + per-skill colors --- */
+    const visibleUpTo = animLen + (frac > 0 ? 0 : -1);
+    for(let i=0; i<=n-1; i++){
+      if(i > visibleUpTo && !(i === animLen + 1 && frac > 0.9)) continue;
+      const dotAlpha = i < animLen ? 1 : (i === animLen ? Math.min(frac * 3, 1) : 0);
+      if(dotAlpha <= 0) continue;
+
+      ctx.globalAlpha = dotAlpha;
+      // outer ring
+      ctx.beginPath();
+      ctx.arc(xOf(i), yOf(vals[i]), 7, 0, Math.PI*2);
+      ctx.fillStyle = dark ? '#1c1916' : '#ede7d9';
+      ctx.fill();
+
+      // colored dot
+      ctx.beginPath();
+      ctx.arc(xOf(i), yOf(vals[i]), 4.5, 0, Math.PI*2);
+      ctx.fillStyle = SK_COLORS[i];
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      /* value label above dot */
+      ctx.fillStyle = c.ink;
+      ctx.font = `700 ${W < 500 ? 10 : 11}px 'Epilogue', sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(vals[i] + '%', xOf(i), yOf(vals[i]) - 14);
+    }
+
+    /* --- x-axis skill labels --- */
+    ctx.fillStyle = c.ink3;
+    ctx.font = `500 ${W < 500 ? 9 : 10.5}px 'Epilogue', sans-serif`;
+    ctx.textAlign = 'center';
+    for(let i=0; i<n; i++){
+      const lbl = labels[i];
+      if(W < 420){
+        // rotate labels on very small screens
+        ctx.save();
+        ctx.translate(xOf(i), PAD_T + cH + 14);
+        ctx.rotate(-Math.PI/4);
+        ctx.textAlign = 'right';
+        ctx.fillText(lbl, 0, 0);
+        ctx.restore();
+      } else {
+        ctx.fillText(lbl, xOf(i), PAD_T + cH + 18);
+      }
+    }
+
+    /* --- legend update --- */
+    const legend = document.getElementById('skLegend');
+    if(legend && legend.children.length === 0){
+      labels.forEach((lbl, i) => {
+        const item = document.createElement('div');
+        item.className = 'sk-leg-item';
+        item.innerHTML = `<span class="sk-leg-dot" style="background:${SK_COLORS[i]}"></span><span>${lbl} <span style="color:var(--ink-4);font-weight:300">${vals[i]}%</span></span>`;
+        legend.appendChild(item);
+      });
+    } else if(legend){
+      // update labels if lang changed
+      const items = legend.querySelectorAll('.sk-leg-item');
+      items.forEach((item, i) => {
+        item.innerHTML = `<span class="sk-leg-dot" style="background:${SK_COLORS[i]}"></span><span>${labels[i]} <span style="color:var(--ink-4);font-weight:300">${vals[i]}%</span></span>`;
+      });
+    }
+  }
+
+  // initial draw (no animation)
+  window.addEventListener('load', () => {
+    drawChart(0);
+    // if skills section already in view (page load scroll position)
+    const sec = document.getElementById('skills');
+    if(sec){
+      const r = sec.getBoundingClientRect();
+      if(r.top < window.innerHeight) triggerChart();
+    }
+  });
+
+  // redraw on resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => drawChart(), 80);
   });
 </script>
 </body>
