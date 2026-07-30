@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAP — F1 | Leonardo Santos Silva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Epilogue:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:       #f5f0e8;
+      --cream-2:     #ede7d9;
+      --cream-3:     #e4dccb;
+      --ink:         #1a1612;
+      --ink-2:       #3d3830;
+      --ink-3:       #6b6358;
+      --ink-4:       #9e9488;
+      --rule:        rgba(26,22,18,0.12);
+      --warm:        #8b6f47;
+      --ff-d: 'Playfair Display', Georgia, serif;
+      --ff-b: 'Epilogue', sans-serif;
+      --ease: cubic-bezier(0.4,0,0.2,1);
+      --eo:   cubic-bezier(0,0,0.2,1);
+      --max: 1160px;
+      --px: clamp(1.5rem, 6vw, 5rem);
+      --py: clamp(4rem, 9vw, 7rem);
+    }
+    [data-theme="dark"] {
+      --cream:   #141210;
+      --cream-2: #1c1916;
+      --cream-3: #252019;
+      --ink:     #f0ebe2;
+      --ink-2:   #d4cdc2;
+      --ink-3:   #9e9488;
+      --ink-4:   #5e574e;
+      --rule:    rgba(240,235,226,0.1);
+      --warm:    #c49a6c;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;font-size:16px;}
+    body{font-family:var(--ff-b);background:var(--cream);color:var(--ink);line-height:1.6;transition:background .5s var(--ease),color .5s var(--ease);overflow-x:hidden;}
+    a{color:inherit;text-decoration:none;}ul{list-style:none;}
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);background:var(--cream);border-bottom:1px solid var(--rule);transition:background .5s var(--ease);}
+    .nav-logo{font-family:var(--ff-d);font-size:1.05rem;font-weight:700;}
+    .nav-logo em{font-style:italic;color:var(--warm);}
+    .back-link{display:flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);transition:color .25s;}
+    .back-link:hover{color:var(--ink);}
+    .back-link svg{width:15px;height:15px;transition:transform .25s var(--ease);}
+    .back-link:hover svg{transform:translateX(-3px);}
+    .nav-right{display:flex;align-items:center;gap:.75rem;}
+    .pill{font-family:var(--ff-b);font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .9rem;border:1px solid var(--rule);border-radius:999px;background:transparent;color:var(--ink-3);cursor:pointer;transition:all .25s;}
+    .pill:hover{background:var(--ink);color:var(--cream);border-color:var(--ink);}
+
+    /* LAYOUT */
+    .w{max-width:var(--max);margin:0 auto;padding:var(--py) var(--px);position:relative;}
+    hr.rule{border:none;border-top:1px solid var(--rule);max-width:var(--max);margin:0 auto;}
+    .sh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:3rem;padding-bottom:1.25rem;border-bottom:1px solid var(--rule);}
+    .sn{font-family:var(--ff-d);font-size:.75rem;font-style:italic;color:var(--ink-4);margin-right:.75rem;}
+    .st{font-family:var(--ff-d);font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:700;letter-spacing:-.02em;}
+    .st em{font-style:italic;color:var(--warm);}
+    .ss{font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);}
+
+    /* HERO */
+    .ph{padding-top:calc(64px + var(--py));padding-bottom:var(--py);}
+    .ph-kicker{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;}
+    .h-line{flex:1;height:1px;background:var(--rule);}
+    .ph-it{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-4);white-space:nowrap;}
+    .ph-head{font-family:var(--ff-d);font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:.95;letter-spacing:-.03em;margin-bottom:1.5rem;}
+    .ph-head .st2{-webkit-text-stroke:1.5px var(--ink);color:transparent;}
+    .ph-head em{font-style:italic;color:var(--warm);-webkit-text-stroke:0;}
+    .ph-sub{font-family:var(--ff-d);font-size:clamp(1.1rem,2vw,1.4rem);font-style:italic;color:var(--ink-2);margin-bottom:2rem;max-width:640px;}
+    .ph-desc{font-size:.975rem;color:var(--ink-3);max-width:620px;line-height:1.85;font-weight:300;margin-bottom:2.5rem;}
+    .ph-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:3rem;}
+    .itag{font-size:.78rem;font-weight:500;padding:.4rem 1rem;border:1px solid var(--rule);color:var(--ink-2);}
+    .ph-meta{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--rule);}
+    .pm{padding:1.25rem 1.5rem;border-right:1px solid var(--rule);}
+    .pm:last-child{border-right:none;}
+    .pm-l{font-size:.68rem;color:var(--ink-4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
+    .pm-v{font-family:var(--ff-d);font-size:1.05rem;font-weight:700;}
+
+    /* OBJECTIVES GRID */
+    .obj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;}
+    .obj-card{border:1px solid var(--rule);background:var(--cream-2);padding:1.75rem;display:flex;gap:1rem;align-items:flex-start;}
+    .obj-ic{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--cream-3);display:flex;align-items:center;justify-content:center;color:var(--warm);}
+    .obj-ic svg{width:18px;height:18px;}
+    .obj-t{font-family:var(--ff-d);font-size:1rem;font-weight:700;margin-bottom:.35rem;}
+    .obj-p{font-size:.85rem;color:var(--ink-3);line-height:1.7;font-weight:300;}
+
+    /* INTRO TEXT COLUMN */
+    .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+    .ph-p{font-size:.95rem;color:var(--ink-3);line-height:1.85;font-weight:300;margin-bottom:1.25rem;}
+    .quote{font-family:var(--ff-d);font-size:clamp(1.05rem,2.2vw,1.3rem);font-style:italic;font-weight:400;line-height:1.5;color:var(--ink-2);border-left:2px solid var(--warm);padding-left:1.5rem;}
+
+    /* STACK */
+    .stack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:2.5rem;}
+    .stack-card{border:1px solid var(--rule);background:var(--cream-2);padding:1.5rem 1.25rem;text-align:center;transition:transform .3s var(--ease),box-shadow .3s var(--ease);}
+    .stack-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.12);}
+    .stack-emoji{font-size:1.75rem;margin-bottom:.75rem;display:block;}
+    .stack-name{font-family:var(--ff-d);font-size:.9rem;font-weight:700;margin-bottom:.25rem;}
+    .stack-role{font-size:.68rem;color:var(--ink-4);letter-spacing:.06em;text-transform:uppercase;}
+
+    .tools-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+    .tool-card{border:1px solid var(--rule);padding:1.5rem;display:flex;align-items:center;gap:1rem;}
+    .tool-ic{font-size:1.5rem;}
+    .tool-name{font-family:var(--ff-d);font-weight:700;font-size:.95rem;margin-bottom:.2rem;}
+    .tool-desc{font-size:.8rem;color:var(--ink-4);font-weight:300;}
+
+    /* PALETTE */
+    .palette-row{display:flex;gap:1rem;flex-wrap:wrap;}
+    .swatch{flex:1;min-width:130px;border:1px solid var(--rule);overflow:hidden;}
+    .swatch-color{height:90px;}
+    .swatch-lbl{padding:.75rem 1rem;font-size:.78rem;font-weight:600;letter-spacing:.05em;background:var(--cream-2);}
+
+    /* SCREENSHOTS */
+    .shot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;}
+    .shot-card{border:1px solid var(--rule);background:var(--cream-2);overflow:hidden;}
+    .shot-img-wrap{overflow:hidden;border-bottom:1px solid var(--rule);background:var(--cream-3);}
+    .shot-img-wrap img{width:100%;display:block;transition:transform .5s var(--ease);}
+    .shot-card:hover .shot-img-wrap img{transform:scale(1.03);}
+    .shot-cap{padding:1.1rem 1.4rem;}
+    .shot-t{font-family:var(--ff-d);font-weight:700;font-size:.95rem;margin-bottom:.25rem;}
+    .shot-d{font-size:.8rem;color:var(--ink-4);font-weight:300;}
+
+    /* DIFFICULTIES / CONCLUSION */
+    .split-grid{display:grid;grid-template-columns:36px 1fr;gap:1.25rem;margin-bottom:1.75rem;}
+    .split-num{font-family:var(--ff-d);font-size:1.1rem;font-style:italic;color:var(--warm);}
+    .split-txt{font-size:.95rem;color:var(--ink-3);line-height:1.85;font-weight:300;}
+
+    /* CTA FOOTER */
+    .cta-box{border:1px solid var(--rule);background:var(--cream-2);padding:3rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.25rem;}
+    .cta-t{font-family:var(--ff-d);font-size:clamp(1.3rem,2.6vw,1.8rem);font-weight:700;}
+    .cta-t em{font-style:italic;color:var(--warm);}
+    .btn-ink{font-family:var(--ff-b);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 2rem;background:var(--ink);color:var(--cream);border:1px solid var(--ink);border-radius:2px;cursor:pointer;transition:all .25s var(--ease);display:inline-flex;align-items:center;gap:.5rem;}
+    .btn-ink:hover{background:var(--warm);border-color:var(--warm);}
+
+    footer{max-width:var(--max);margin:0 auto;padding:2rem var(--px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid var(--rule);}
+    .fl{font-family:var(--ff-d);font-size:.95rem;font-weight:700;}
+    .fl em{font-style:italic;color:var(--warm);}
+    .fc{font-size:.72rem;color:var(--ink-4);letter-spacing:.08em;}
+
+    .r{opacity:1;transform:translateY(0);}
+    .js-ready .r{opacity:0;transform:translateY(18px);transition:opacity .7s var(--eo),transform .7s var(--eo);}
+    .js-ready .r.in{opacity:1;transform:translateY(0);}
+
+    @media(max-width:860px){
+      .intro-grid{grid-template-columns:1fr;gap:2rem;}
+      .obj-grid{grid-template-columns:1fr;}
+      .tools-row{grid-template-columns:1fr;}
+      .shot-grid{grid-template-columns:1fr;}
+      .ph-meta{grid-template-columns:1fr 1fr;}
+      .pm:nth-child(2){border-right:none;}
+      .pm:nth-child(3){border-right:1px solid var(--rule);border-top:1px solid var(--rule);}
+      .pm:nth-child(4){border-top:1px solid var(--rule);}
+    }
+    @media(max-width:520px){
+      .ph-meta{grid-template-columns:1fr;}
+      .pm{border-right:none !important;border-top:1px solid var(--rule);}
+      .pm:first-child{border-top:none;}
+      .stack-grid{grid-template-columns:repeat(2,1fr);}
+    }
+    @media(max-width:640px){
+      nav{padding:0 1.1rem;}
+      .nav-logo{display:none;}
+      .back-link span{display:none;}
+      .nav-right{gap:.4rem;}
+      .pill{padding:.4rem .65rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html#projects" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    <span data-pt="Portfólio" data-en="Portfolio">Portfólio</span>
+  </a>
+  <div class="nav-logo">Leonardo <em>Silva</em></div>
+  <div class="nav-right">
+    <button class="pill" id="langBtn"><span class="ll">EN</span></button>
+    <button class="pill" id="themeBtn"><span class="tl">Claro</span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="w ph">
+  <div class="ph-kicker r">
+    <div class="h-line"></div>
+    <span class="ph-it" data-pt="Projeto 03 · Prova de Aptidão Profissional" data-en="Project 03 · Professional Aptitude Test">Projeto 03 · Prova de Aptidão Profissional</span>
+    <div class="h-line"></div>
+  </div>
+  <h1 class="ph-head r">F<span class="st2">1</span></h1>
+  <p class="ph-sub r" data-pt="Website de informação sobre Fórmula 1, sustentado por uma base de dados." data-en="A Formula 1 information website, powered by a database.">Website de informação sobre Fórmula 1, sustentado por uma base de dados.</p>
+  <p class="ph-desc r" data-pt="Projeto de conclusão do curso de GPSI — Gestão e Programação de Sistemas Informáticos. Aplicação prática de todos os conhecimentos técnicos adquiridos ao longo do 12.º ano, com o objetivo de gerir os diversos recursos e produtos ligados ao mundo da Fórmula 1." data-en="Course completion project for GPSI — IT Systems Management and Programming. A practical application of all the technical knowledge gathered throughout 12th grade, built to manage the various resources and products tied to the world of Formula 1.">
+    Projeto de conclusão do curso de GPSI — Gestão e Programação de Sistemas Informáticos. Aplicação prática de todos os conhecimentos técnicos adquiridos ao longo do 12.º ano, com o objetivo de gerir os diversos recursos e produtos ligados ao mundo da Fórmula 1.
+  </p>
+  <div class="ph-tags r">
+    <span class="itag">🎨 HTML</span>
+    <span class="itag">🎨 CSS</span>
+    <span class="itag">⚙️ PHP</span>
+    <span class="itag">⚡ JavaScript</span>
+    <span class="itag">🗄️ MySQL</span>
+  </div>
+  <div class="ph-meta r">
+    <div class="pm">
+      <div class="pm-l" data-pt="Aluno" data-en="Student">Aluno</div>
+      <div class="pm-v">Leonardo Santos Silva</div>
+    </div>
+    <div class="pm">
+      <div class="pm-l" data-pt="Curso" data-en="Course">Curso</div>
+      <div class="pm-v">GPSI</div>
+    </div>
+    <div class="pm">
+      <div class="pm-l" data-pt="Ano e Turma" data-en="Year & Class">Ano e Turma</div>
+      <div class="pm-v">12.º 4</div>
+    </div>
+    <div class="pm">
+      <div class="pm-l" data-pt="Ano Letivo" data-en="School Year">Ano Letivo</div>
+      <div class="pm-v">2024 / 2025</div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- SOBRE O TEMA -->
+<div class="w">
+  <div class="sh r">
+    <div><span class="sn">01 —</span><span class="st" data-pt="Tema do <em>Projeto</em>" data-en="Project <em>Theme</em>">Tema do <em>Projeto</em></span></div>
+    <span class="ss" data-pt="Sobre" data-en="About">Sobre</span>
+  </div>
+  <div class="intro-grid">
+    <div class="r">
+      <p class="ph-p" data-pt="O F1 é um website dedicado à Fórmula 1, com notícias, calendário de corridas, pilotos, equipas e uma pequena loja — tudo sustentado por uma base de dados que permite gerir os diversos recursos e produtos apresentados no site." data-en="F1 is a website dedicated to Formula 1, featuring news, race calendars, drivers, teams and a small store — all backed by a database that manages the various resources and products shown on the site.">
+        O F1 é um website dedicado à Fórmula 1, com notícias, calendário de corridas, pilotos, equipas e uma pequena loja — tudo sustentado por uma base de dados que permite gerir os diversos recursos e produtos apresentados no site.
+      </p>
+      <p class="ph-p" data-pt="O nome atribuído ao projeto foi, simplesmente, F1." data-en="The name given to the project was, simply, F1.">
+        O nome atribuído ao projeto foi, simplesmente, F1.
+      </p>
+    </div>
+    <div class="r" style="transition-delay:.1s">
+      <p class="quote" data-pt="“Website é sustentado por uma base de dados, tornando possível gerir os diversos recursos e produtos.”" data-en="“The website is backed by a database, making it possible to manage the various resources and products.”">
+        “Website é sustentado por uma base de dados, tornando possível gerir os diversos recursos e produtos.”
+      </p>
+    </div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- OBJETIVOS -->
+<div class="w">
+  <div class="sh r">
+    <div><span class="sn">02 —</span><span class="st" data-pt="<em>Objetivos</em>" data-en="<em>Goals</em>"><em>Objetivos</em></span></div>
+    <span class="ss" data-pt="O que se pretendia" data-en="What was intended">O que se pretendia</span>
+  </div>
+  <div class="obj-grid">
+    <div class="obj-card r">
+      <div class="obj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div>
+        <div class="obj-t" data-pt="Engajamento do Público" data-en="Audience Engagement">Engajamento do Público</div>
+        <p class="obj-p" data-pt="Manter os visitantes interessados e envolvidos com o conteúdo sobre Fórmula 1." data-en="Keep visitors interested and engaged with the Formula 1 content.">Manter os visitantes interessados e envolvidos com o conteúdo sobre Fórmula 1.</p>
+      </div>
+    </div>
+    <div class="obj-card r" style="transition-delay:.06s">
+      <div class="obj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+      <div>
+        <div class="obj-t" data-pt="Informação Completa" data-en="Complete Information">Informação Completa</div>
+        <p class="obj-p" data-pt="Reunir notícias, calendário, pilotos e equipas num único lugar." data-en="Bring news, calendar, drivers and teams together in one place.">Reunir notícias, calendário, pilotos e equipas num único lugar.</p>
+      </div>
+    </div>
+    <div class="obj-card r" style="transition-delay:.12s">
+      <div class="obj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+      <div>
+        <div class="obj-t" data-pt="Facilidade de Navegação" data-en="Ease of Navigation">Facilidade de Navegação</div>
+        <p class="obj-p" data-pt="Estrutura clara de menus para encontrar rapidamente qualquer secção." data-en="A clear menu structure to quickly find any section.">Estrutura clara de menus para encontrar rapidamente qualquer secção.</p>
+      </div>
+    </div>
+    <div class="obj-card r" style="transition-delay:.18s">
+      <div class="obj-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+      <div>
+        <div class="obj-t" data-pt="Compatibilidade / Responsividade" data-en="Compatibility / Responsiveness">Compatibilidade / Responsividade</div>
+        <p class="obj-p" data-pt="Boa apresentação em qualquer ecrã, de telemóvel a computador." data-en="A solid presentation on any screen, from mobile to desktop.">Boa apresentação em qualquer ecrã, de telemóvel a computador.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- STACK -->
+<div class="w">
+  <div class="sh r">
+    <div><span class="sn">03 —</span><span class="st" data-pt="Stack <em>Tecnológico</em>" data-en="Tech <em>Stack</em>">Stack <em>Tecnológico</em></span></div>
+    <span class="ss" data-pt="Ferramentas & Linguagens" data-en="Tools & Languages">Ferramentas & Linguagens</span>
+  </div>
+  <div class="stack-grid">
+    <div class="stack-card r"><span class="stack-emoji">🧱</span><div class="stack-name">HTML</div><div class="stack-role" data-pt="Estrutura" data-en="Structure">Estrutura</div></div>
+    <div class="stack-card r" style="transition-delay:.05s"><span class="stack-emoji">🎨</span><div class="stack-name">CSS</div><div class="stack-role" data-pt="Estilo" data-en="Style">Estilo</div></div>
+    <div class="stack-card r" style="transition-delay:.1s"><span class="stack-emoji">⚡</span><div class="stack-name">JavaScript</div><div class="stack-role" data-pt="Interatividade" data-en="Interactivity">Interatividade</div></div>
+    <div class="stack-card r" style="transition-delay:.15s"><span class="stack-emoji">⚙️</span><div class="stack-name">PHP</div><div class="stack-role" data-pt="Backend" data-en="Backend">Backend</div></div>
+    <div class="stack-card r" style="transition-delay:.2s"><span class="stack-emoji">🗄️</span><div class="stack-name">MySQL</div><div class="stack-role" data-pt="Base de Dados" data-en="Database">Base de Dados</div></div>
+  </div>
+  <div class="tools-row">
+    <div class="tool-card r">
+      <span class="tool-ic">💻</span>
+      <div>
+        <div class="tool-name">Visual Studio Code</div>
+        <div class="tool-desc" data-pt="Para desenvolver o código do website." data-en="Used to develop the website's code.">Para desenvolver o código do website.</div>
+      </div>
+    </div>
+    <div class="tool-card r" style="transition-delay:.06s">
+      <span class="tool-ic">🗂️</span>
+      <div>
+        <div class="tool-name">HeidiSQL</div>
+        <div class="tool-desc" data-pt="Para gestão dos dados do website." data-en="Used to manage the website's data.">Para gestão dos dados do website.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- DESIGN -->
+<div class="w">
+  <div class="sh r">
+    <div><span class="sn">04 —</span><span class="st" data-pt="<em>Design</em>" data-en="<em>Design</em>"><em>Design</em></span></div>
+    <span class="ss" data-pt="Paleta de cores" data-en="Color palette">Paleta de cores</span>
+  </div>
+  <p class="ph-p r" style="margin-bottom:2rem;" data-pt="O design do website foi inspirado no website oficial da Fórmula 1, apostando num contraste forte entre o vermelho de destaque e os tons escuros de fundo." data-en="The website's design was inspired by the official Formula 1 website, relying on a strong contrast between the accent red and the dark background tones.">
+    O design do website foi inspirado no website oficial da Fórmula 1, apostando num contraste forte entre o vermelho de destaque e os tons escuros de fundo.
+  </p>
+  <div class="palette-row r">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#ff351b;"></div>
+      <div class="swatch-lbl">#FF351B</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#131313;"></div>
+      <div class="swatch-lbl" style="color:#f5f0e8;background:#1c1916;">#131313</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#f5f5f5;"></div>
+      <div class="swatch-lbl">#F5F5F5</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#ffffff;border-bottom:1px solid var(--rule);"></div>
+      <div class="swatch-lbl">#FFFFFF</div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- SCREENSHOTS -->
+<div class="w">
+  <div class="sh r">
+    <div><span class="sn">05 —</span><span class="st" data-pt="Capturas de <em>Ecrã</em>" data-en="<em>Screenshots</em>">Capturas de <em>Ecrã</em></span></div>
+    <span class="ss" data-pt="Versão original" data-en="Original version">Versão original</span>
+  </div>
+  <div class="shot-grid">
+    <div class="shot-card r">
+      <div class="shot-img-wrap"><img src="images/inicio.png" alt="Página inicial do website F1"/></div>
+      <div class="shot-cap">
+        <div class="shot-t" data-pt="Página Principal" data-en="Home Page">Página Principal</div>
+        <div class="shot-d" data-pt="Ecrã de boas-vindas com notícias destacadas sobre Fórmula 1." data-en="Welcome screen with featured Formula 1 news.">Ecrã de boas-vindas com notícias destacadas sobre Fórmula 1.</div>
+      </div>
+    </div>
+    <div class="shot-card r" style="transition-delay:.08s">
+      <div class="shot-img-wrap"><img src="images/login.png" alt="Ecrã de login do website F1"/></div>
+      <div class="shot-cap">
+        <div class="shot-t" data-pt="Login" data-en="Login">Login</div>
+        <div class="shot-d" data-pt="Autenticação de utilizadores com criação de conta." data-en="User authentication with account creation.">Autenticação de utilizadores com criação de conta.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- DIFICULDADES -->
+<div class="w">
+  <div class="sh r">
+    <div><span class="sn">06 —</span><span class="st" data-pt="<em>Dificuldades</em>" data-en="<em>Challenges</em>"><em>Dificuldades</em></span></div>
+    <span class="ss" data-pt="Obstáculos" data-en="Obstacles">Obstáculos</span>
+  </div>
+  <div class="split-grid r">
+    <span class="split-num">—</span>
+    <p class="split-txt" data-pt="No desenvolvimento do website tive algumas dificuldades em PHP, mas com a ajuda dos professores, colegas de turma e de muita pesquisa consegui ultrapassá-las." data-en="During the website's development I ran into some difficulties with PHP, but with help from teachers, classmates and a lot of research I was able to overcome them.">
+      No desenvolvimento do website tive algumas dificuldades em PHP, mas com a ajuda dos professores, colegas de turma e de muita pesquisa consegui ultrapassá-las.
+    </p>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- CONCLUSÃO -->
+<div class="w">
+  <div class="sh r">
+    <div><span class="sn">07 —</span><span class="st" data-pt="<em>Conclusão</em>" data-en="<em>Conclusion</em>"><em>Conclusão</em></span></div>
+    <span class="ss" data-pt="Balanço final" data-en="Final thoughts">Balanço final</span>
+  </div>
+  <div class="split-grid r">
+    <span class="split-num">1</span>
+    <p class="split-txt" data-pt="Neste projeto melhorei os meus conhecimentos em PHP, HTML, CSS e JavaScript." data-en="With this project I improved my knowledge of PHP, HTML, CSS and JavaScript.">Neste projeto melhorei os meus conhecimentos em PHP, HTML, CSS e JavaScript.</p>
+  </div>
+  <div class="split-grid r" style="transition-delay:.06s">
+    <span class="split-num">2</span>
+    <p class="split-txt" data-pt="A concretização deste projeto, o mais desafiador que já realizei, foi extremamente gratificante, pois proporcionou-me a oportunidade de aplicar, de forma prática e relevante, os conhecimentos adquiridos ao longo do curso." data-en="Completing this project, the most challenging one I've done, was extremely rewarding, as it gave me the opportunity to apply, in a practical and relevant way, the knowledge gathered throughout the course.">
+      A concretização deste projeto, o mais desafiador que já realizei, foi extremamente gratificante, pois proporcionou-me a oportunidade de aplicar, de forma prática e relevante, os conhecimentos adquiridos ao longo do curso.
+    </p>
+  </div>
+  <div class="split-grid r" style="transition-delay:.12s">
+    <span class="split-num">3</span>
+    <p class="split-txt" data-pt="Este projeto reforçou a minha confiança e aprimorou a minha habilidade de gerir projetos complexos, ajudando-me a estar mais preparado para os desafios do mercado de trabalho." data-en="This project strengthened my confidence and improved my ability to manage complex projects, helping me be more prepared for the challenges of the job market.">
+      Este projeto reforçou a minha confiança e aprimorou a minha habilidade de gerir projetos complexos, ajudando-me a estar mais preparado para os desafios do mercado de trabalho.
+    </p>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- CTA -->
+<div class="w">
+  <div class="cta-box r">
+    <div class="cta-t" data-pt="Queres ver os meus outros <em>projetos</em>?" data-en="Want to see my other <em>projects</em>?">Queres ver os meus outros <em>projetos</em>?</div>
+    <a href="index.html#projects" class="btn-ink">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      <span data-pt="Voltar ao Portfólio" data-en="Back to Portfolio">Voltar ao Portfólio</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fl">Leonardo <em>Silva</em></div>
+  <span class="fc" data-pt="© 2026 — Todos os direitos reservados" data-en="© 2026 — All rights reserved">© 2026 — Todos os direitos reservados</span>
+  <span class="fc" data-pt="Feito com ☕ e curiosidade" data-en="Made with ☕ and curiosity">Feito com ☕ e curiosidade</span>
+</footer>
+
+<script>
+  let lang = 'pt';
+  let dark = true;
+
+  function applyLang(l){
+    lang = l;
+    document.querySelectorAll('[data-pt],[data-en]').forEach(el=>{
+      const v = el.getAttribute('data-'+l); if(!v) return;
+      if(v.includes('<')) el.innerHTML = v; else el.textContent = v;
+    });
+    const next = l==='pt' ? 'EN' : 'PT';
+    document.querySelectorAll('.ll').forEach(e=>e.textContent = next);
+    updateTL();
+  }
+  function updateTL(){
+    const t = dark ? (lang==='pt'?'Claro':'Light') : (lang==='pt'?'Escuro':'Dark');
+    document.querySelectorAll('.tl').forEach(e=>e.textContent = t);
+  }
+  document.getElementById('langBtn').addEventListener('click', ()=>applyLang(lang==='pt'?'en':'pt'));
+
+  function setTheme(d){
+    dark = d;
+    document.documentElement.setAttribute('data-theme', d ? 'dark' : 'light');
+    updateTL();
+  }
+  document.getElementById('themeBtn').addEventListener('click', ()=>setTheme(!dark));
+
+  document.body.classList.add('js-ready');
+  function revealAll(){ document.querySelectorAll('.r').forEach(el=>el.classList.add('in')); }
+  if('IntersectionObserver' in window){
+    setTimeout(revealAll, 800);
+    const ro = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+    }, {threshold:.05});
+    document.querySelectorAll('.r').forEach((el,i)=>{
+      if(!el.style.transitionDelay) el.style.transitionDelay = `${(i%5)*.06}s`;
+      ro.observe(el);
+    });
+    setTimeout(()=>{
+      document.querySelectorAll('.r:not(.in)').forEach(el=>{
+        const rect = el.getBoundingClientRect();
+        if(rect.top < window.innerHeight + 200) el.classList.add('in');
+      });
+    }, 100);
+  } else { revealAll(); }
+</script>
+</body>
+</html>
